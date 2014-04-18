@@ -12,8 +12,8 @@ namespace FriendlyRegularExpressions.Tests
             var expression = new FriendlyRegex()
                 .StartOfLine()
                 .Then(One.Digit)
-                .Then(Multiple.NonWhiteSpaceCharacters)
                 .Then(Multiple.NonDigits)
+                .Then(Raw.Pattern("(s|t)"))
                 .EndOfLine();
 
             var regex = expression.ToRegex();
