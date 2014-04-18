@@ -11,16 +11,14 @@ namespace FriendlyRegularExpressions.Tests
         {
             var expression = new FriendlyRegex()
                 .StartOfLine()
-                .Then(One.Digit)
-                .Then(Multiple.NonDigits)
-                .Then(Raw.Pattern("(s|z)"))
-                .Then(Multiple.ArbitraryCharacters)
+                .Then(Multiple.Digits)
+                .ThenMaybe("$")
                 .EndOfLine();
 
             var regex = expression.ToRegex();
 
             Console.WriteLine(expression);
-            Console.WriteLine(regex.IsMatch("1...Tes......"));
+            Console.WriteLine(regex.IsMatch("34$"));
         }
     }
 }

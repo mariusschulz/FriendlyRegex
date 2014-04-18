@@ -53,10 +53,18 @@ namespace FriendlyRegularExpressions
             return Append(new EndAnchor());
         }
 
-        public FriendlyRegex Optional(string pattern)
+        public FriendlyRegex ThenMaybe(string literal)
         {
-            string escaped = Escape(pattern);
-            var optionalExpression = new QuestionMarkQuantifier(escaped);
+            string escaped = Escape(literal);
+            var literalExpression = new Literal(escaped);
+            var optionalExpression = new QuestionMarkQuantifier(literalExpression);
+
+            return Append(optionalExpression);
+        }
+
+        public FriendlyRegex ThenMaybe(Subexpression expression)
+        {
+            var optionalExpression = new QuestionMarkQuantifier(expression);
 
             return Append(optionalExpression);
         }
