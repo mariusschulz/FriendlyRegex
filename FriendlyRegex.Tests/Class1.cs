@@ -11,7 +11,8 @@ namespace FriendlyRegularExpressions.Tests
         {
             var expression = new FriendlyRegex()
                 .StartOfLine()
-                .Then("hi")
+                .Then(@"\d")
+                .ThenRaw(@"\d")
                 .EndOfLine();
 
             Console.WriteLine(expression);

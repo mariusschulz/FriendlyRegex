@@ -68,6 +68,13 @@ namespace FriendlyRegularExpressions
             return Append(literalExpression);
         }
 
+        public FriendlyRegex ThenRaw(string pattern)
+        {
+            var rawPattern = new RawPattern(pattern);
+
+            return Append(rawPattern);
+        }
+
         public FriendlyRegex BeginCapture()
         {
             return Append(new OpeningCapturingGroup());

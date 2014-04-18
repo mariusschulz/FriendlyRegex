@@ -52,6 +52,7 @@
     <Compile Include="Subexpressions\Quantifiers\PlusQuantifier.cs" />
     <Compile Include="Subexpressions\Quantifiers\QuestionMarkQuantifier.cs" />
     <Compile Include="Subexpressions\Quantifiers\StarQuantifier.cs" />
+    <Compile Include="Subexpressions\RawPattern.cs" />
     <Compile Include="Subexpressions\StartAnchor.cs" />
     <Compile Include="Subexpressions\Subexpression.cs" />
   </ItemGroup>
