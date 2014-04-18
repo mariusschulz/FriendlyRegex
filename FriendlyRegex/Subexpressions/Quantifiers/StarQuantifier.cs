@@ -3,17 +3,17 @@ namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
 {
     internal class StarQuantifier : Subexpression
     {
-        private readonly string _pattern;
-        public string Pattern { get { return _pattern; } }
+        private readonly Subexpression _expression;
+        public Subexpression Expression { get { return _expression; } }
 
-        public StarQuantifier(string pattern)
+        public StarQuantifier(Subexpression expression)
         {
-            _pattern = pattern;
+            _expression = expression;
         }
 
         public override string GetStringRepresentation()
         {
-            return "(?:" + _pattern + ")*";
+            return "(?:" + _expression + ")*";
         }
     }
 }

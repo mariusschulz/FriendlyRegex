@@ -26,19 +26,20 @@ namespace FriendlyRegularExpressions
             return new Regex(ToString());
         }
 
-        public FriendlyRegex OneOrMore(string pattern)
+        public FriendlyRegex ThenOneOrMore(string literal)
         {
-            string escaped = Escape(pattern);
+            string escaped = Escape(literal);
             var literalExpression = new Literal(escaped);
             var repeatedExpression = new PlusQuantifier(literalExpression);
 
             return Append(repeatedExpression);
         }
 
-        public FriendlyRegex ZeroOrMore(string pattern)
+        public FriendlyRegex ThenZeroOrMore(string literal)
         {
-            string escaped = Escape(pattern);
-            var repeatedExpression = new StarQuantifier(escaped);
+            string escaped = Escape(literal);
+            var literalExpression = new Literal(escaped);
+            var repeatedExpression = new StarQuantifier(literalExpression);
 
             return Append(repeatedExpression);
         }

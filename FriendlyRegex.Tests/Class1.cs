@@ -12,7 +12,7 @@ namespace FriendlyRegularExpressions.Tests
             var expression = new FriendlyRegex()
                 .StartOfLine()
                 .Then(Multiple.Digits)
-                .ThenMaybe("$")
+                .ThenMaybe("$") 
                 .EndOfLine();
 
             var regex = expression.ToRegex();
