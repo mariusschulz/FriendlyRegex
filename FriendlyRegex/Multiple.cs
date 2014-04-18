@@ -5,6 +5,8 @@ namespace FriendlyRegularExpressions
 {
     public static class Multiple
     {
+        public static Subexpression ArbitraryCharacters { get; private set; }
+
         public static Subexpression Digits { get; private set; }
         public static Subexpression NonDigits { get; private set; }
 
@@ -16,6 +18,8 @@ namespace FriendlyRegularExpressions
 
         static Multiple()
         {
+            ArbitraryCharacters = new PlusQuantifier(One.ArbitraryCharacter);
+
             Digits = new PlusQuantifier(One.Digit);
             NonDigits = new PlusQuantifier(One.NonDigit);
 

@@ -5,6 +5,8 @@ namespace FriendlyRegularExpressions
 {
     public static class One
     {
+        public static Subexpression ArbitraryCharacter { get; private set; }
+
         public static Subexpression Digit { get; private set; }
         public static Subexpression NonDigit { get; private set; }
 
@@ -19,6 +21,8 @@ namespace FriendlyRegularExpressions
 
         static One()
         {
+            ArbitraryCharacter = new Dot();
+            
             Digit = new ShorthandCharacterClass(@"\d");
             NonDigit = new ShorthandCharacterClass(@"\D");
 

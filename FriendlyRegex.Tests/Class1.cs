@@ -13,13 +13,14 @@ namespace FriendlyRegularExpressions.Tests
                 .StartOfLine()
                 .Then(One.Digit)
                 .Then(Multiple.NonDigits)
-                .Then(Raw.Pattern("(s|t)"))
+                .Then(Raw.Pattern("(s|z)"))
+                .Then(Multiple.ArbitraryCharacters)
                 .EndOfLine();
 
             var regex = expression.ToRegex();
 
             Console.WriteLine(expression);
-            Console.WriteLine(regex.IsMatch("1...Test"));
+            Console.WriteLine(regex.IsMatch("1...Tes......"));
         }
     }
 }

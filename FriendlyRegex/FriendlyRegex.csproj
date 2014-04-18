@@ -45,6 +45,7 @@
     <Compile Include="FriendlyRegex.cs" />
     <Compile Include="Raw.cs" />
     <Compile Include="Subexpressions\CharacterClasses\ShorthandCharacterClass.cs" />
+    <Compile Include="Subexpressions\Dot.cs" />
     <Compile Include="Subexpressions\EndAnchor.cs" />
     <Compile Include="Subexpressions\Groups\ClosingCapturingGroup.cs" />
     <Compile Include="Subexpressions\Groups\OpeningCapturingGroup.cs" />
