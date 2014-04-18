@@ -1,26 +1,27 @@
-﻿using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
+﻿using FriendlyRegularExpressions.Subexpressions;
+using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
 
 namespace FriendlyRegularExpressions
 {
     public static class One
     {
-        public static ShorthandCharacterClass Digit { get; private set; }
-        public static ShorthandCharacterClass NonDigit { get; private set; }
+        public static Subexpression Digit { get; private set; }
+        public static Subexpression NonDigit { get; private set; }
 
-        public static ShorthandCharacterClass WhiteSpaceCharacter { get; private set; }
-        public static ShorthandCharacterClass NonWhiteSpaceCharacter { get; private set; }
+        public static Subexpression WhiteSpaceCharacter { get; private set; }
+        public static Subexpression NonWhiteSpaceCharacter { get; private set; }
 
-        public static ShorthandCharacterClass WordCharacter { get; private set; }
-        public static ShorthandCharacterClass NonWordCharacter { get; private set; }
+        public static Subexpression WordCharacter { get; private set; }
+        public static Subexpression NonWordCharacter { get; private set; }
 
-        public static ShorthandCharacterClass WordBoundary { get; private set; }
-        public static ShorthandCharacterClass NonWordBoundary { get; private set; }
+        public static Subexpression WordBoundary { get; private set; }
+        public static Subexpression NonWordBoundary { get; private set; }
 
         static One()
         {
             Digit = new ShorthandCharacterClass(@"\d");
             NonDigit = new ShorthandCharacterClass(@"\D");
-            
+
             WhiteSpaceCharacter = new ShorthandCharacterClass(@"\s");
             NonWhiteSpaceCharacter = new ShorthandCharacterClass(@"\S");
 

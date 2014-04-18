@@ -12,10 +12,14 @@ namespace FriendlyRegularExpressions.Tests
             var expression = new FriendlyRegex()
                 .StartOfLine()
                 .Then(One.Digit)
-                .Then(One.WordCharacter)
+                .Then(Multiple.NonWhiteSpaceCharacters)
+                .Then(Multiple.NonDigits)
                 .EndOfLine();
 
+            var regex = expression.ToRegex();
+
             Console.WriteLine(expression);
+            Console.WriteLine(regex.IsMatch("1...Test"));
         }
     }
 }

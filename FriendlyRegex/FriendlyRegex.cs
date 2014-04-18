@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Subexpressions;
-using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
 using FriendlyRegularExpressions.Subexpressions.Groups;
 using FriendlyRegularExpressions.Subexpressions.Lookarounds;
 using FriendlyRegularExpressions.Subexpressions.Quantifiers;
@@ -30,7 +29,8 @@ namespace FriendlyRegularExpressions
         public FriendlyRegex OneOrMore(string pattern)
         {
             string escaped = Escape(pattern);
-            var repeatedExpression = new PlusQuantifier(escaped);
+            var literalExpression = new Literal(escaped);
+            var repeatedExpression = new PlusQuantifier(literalExpression);
 
             return Append(repeatedExpression);
         }
@@ -69,9 +69,9 @@ namespace FriendlyRegularExpressions
             return Append(literalExpression);
         }
 
-        public FriendlyRegex Then(ShorthandCharacterClass characterClass)
+        public FriendlyRegex Then(Subexpression expression)
         {
-            return Append(characterClass);
+            return Append(expression);
         }
 
         public FriendlyRegex ThenRaw(string pattern)
