@@ -7,7 +7,7 @@
     <ProjectGuid>{A341A3B4-AB88-460D-82E5-D6FC60A77D2A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FriendlyRegex.Tests</RootNamespace>
+    <RootNamespace>FriendlyRegularExpressions.Tests</RootNamespace>
     <AssemblyName>FriendlyRegex.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
