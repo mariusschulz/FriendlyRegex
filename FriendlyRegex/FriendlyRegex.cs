@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Subexpressions;
+using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
 using FriendlyRegularExpressions.Subexpressions.Groups;
 using FriendlyRegularExpressions.Subexpressions.Lookarounds;
 using FriendlyRegularExpressions.Subexpressions.Quantifiers;
@@ -66,6 +67,11 @@ namespace FriendlyRegularExpressions
             var literalExpression = new Literal(escaped);
 
             return Append(literalExpression);
+        }
+
+        public FriendlyRegex Then(ShorthandCharacterClass characterClass)
+        {
+            return Append(characterClass);
         }
 
         public FriendlyRegex ThenRaw(string pattern)

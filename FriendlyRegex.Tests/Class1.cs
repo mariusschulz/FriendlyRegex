@@ -11,7 +11,7 @@ namespace FriendlyRegularExpressions.Tests
         {
             var expression = new FriendlyRegex()
                 .StartOfLine()
-                .Then(@"\d")
+                .Then(Any.Digit)
                 .ThenRaw(@"\d")
                 .EndOfLine();
 

@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Any.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FriendlyRegex.cs" />
+    <Compile Include="Subexpressions\CharacterClasses\ShorthandCharacterClass.cs" />
     <Compile Include="Subexpressions\EndAnchor.cs" />
     <Compile Include="Subexpressions\Groups\ClosingCapturingGroup.cs" />
     <Compile Include="Subexpressions\Groups\OpeningCapturingGroup.cs" />

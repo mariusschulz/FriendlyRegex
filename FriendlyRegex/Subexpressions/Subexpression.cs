@@ -1,7 +1,7 @@
 ﻿
 namespace FriendlyRegularExpressions.Subexpressions
 {
-    internal abstract class Subexpression
+    public abstract class Subexpression
     {
         public abstract string GetStringRepresentation();
 
