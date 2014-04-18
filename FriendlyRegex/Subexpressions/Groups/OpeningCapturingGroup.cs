@@ -1,5 +1,5 @@
 ﻿
-namespace FriendlyRegex.Subexpressions.Groups
+namespace FriendlyRegularExpressions.Subexpressions.Groups
 {
     internal class OpeningCapturingGroup : Subexpression
     {

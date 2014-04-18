@@ -1,5 +1,5 @@
 ﻿
-namespace FriendlyRegex.Subexpressions.Quantifiers
+namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
 {
     internal class StarQuantifier : Subexpression
     {

@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using FriendlyRegex.Subexpressions;
-using FriendlyRegex.Subexpressions.Groups;
-using FriendlyRegex.Subexpressions.Lookarounds;
-using FriendlyRegex.Subexpressions.Quantifiers;
+using FriendlyRegularExpressions.Subexpressions;
+using FriendlyRegularExpressions.Subexpressions.Groups;
+using FriendlyRegularExpressions.Subexpressions.Lookarounds;
+using FriendlyRegularExpressions.Subexpressions.Quantifiers;
 
-namespace FriendlyRegex
+namespace FriendlyRegularExpressions
 {
-    public class RegularExpression
+    public class FriendlyRegex
     {
         private readonly List<Subexpression> _subexpressions;
 
-        public RegularExpression()
+        public FriendlyRegex()
         {
             _subexpressions = new List<Subexpression>();
         }
@@ -26,7 +26,7 @@ namespace FriendlyRegex
             return new Regex(ToString());
         }
 
-        public RegularExpression OneOrMore(string pattern)
+        public FriendlyRegex OneOrMore(string pattern)
         {
             string escaped = Escape(pattern);
             var repeatedExpression = new PlusQuantifier(escaped);
@@ -34,7 +34,7 @@ namespace FriendlyRegex
             return Append(repeatedExpression);
         }
 
-        public RegularExpression ZeroOrMore(string pattern)
+        public FriendlyRegex ZeroOrMore(string pattern)
         {
             string escaped = Escape(pattern);
             var repeatedExpression = new StarQuantifier(escaped);
@@ -42,17 +42,17 @@ namespace FriendlyRegex
             return Append(repeatedExpression);
         }
 
-        public RegularExpression StartOfLine()
+        public FriendlyRegex StartOfLine()
         {
             return Append(new StartAnchor());
         }
 
-        public RegularExpression EndOfLine()
+        public FriendlyRegex EndOfLine()
         {
             return Append(new EndAnchor());
         }
 
-        public RegularExpression Optional(string pattern)
+        public FriendlyRegex Optional(string pattern)
         {
             string escaped = Escape(pattern);
             var optionalExpression = new QuestionMarkQuantifier(escaped);
@@ -60,22 +60,22 @@ namespace FriendlyRegex
             return Append(optionalExpression);
         }
 
-        public RegularExpression BeginCapture()
+        public FriendlyRegex BeginCapture()
         {
             return Append(new OpeningCapturingGroup());
         }
 
-        public RegularExpression BeginCapture(string name)
+        public FriendlyRegex BeginCapture(string name)
         {
             return Append(new OpeningCapturingGroup(name));
         }
 
-        public RegularExpression EndCapture()
+        public FriendlyRegex EndCapture()
         {
             return Append(new ClosingCapturingGroup());
         }
 
-        public RegularExpression LookingAheadAt(string pattern)
+        public FriendlyRegex LookingAheadAt(string pattern)
         {
             string escaped = Escape(pattern);
             var lookaheadExpression = new PositiveLookahead(escaped);
@@ -83,7 +83,7 @@ namespace FriendlyRegex
             return Append(lookaheadExpression);
         }
 
-        public RegularExpression NotLookingAheadAt(string pattern)
+        public FriendlyRegex NotLookingAheadAt(string pattern)
         {
             string escaped = Escape(pattern);
             var lookaheadExpression = new NegativeLookahead(escaped);
@@ -91,7 +91,7 @@ namespace FriendlyRegex
             return Append(lookaheadExpression);
         }
 
-        public RegularExpression LookingBehindAt(string pattern)
+        public FriendlyRegex LookingBehindAt(string pattern)
         {
             string escaped = Escape(pattern);
             var lookbehindExpression = new PositiveLookbehind(escaped);
@@ -99,7 +99,7 @@ namespace FriendlyRegex
             return Append(lookbehindExpression);
         }
 
-        public RegularExpression NotLookingBehindAt(string pattern)
+        public FriendlyRegex NotLookingBehindAt(string pattern)
         {
             string escaped = Escape(pattern);
             var lookbehindExpression = new NegativeLookbehind(escaped);
@@ -112,7 +112,7 @@ namespace FriendlyRegex
             return Regex.Escape(literal);
         }
 
-        private RegularExpression Append(Subexpression subexpression)
+        private FriendlyRegex Append(Subexpression subexpression)
         {
             _subexpressions.Add(subexpression);
 

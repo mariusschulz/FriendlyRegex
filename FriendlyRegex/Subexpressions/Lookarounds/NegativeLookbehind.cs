@@ -1,5 +1,5 @@
 ﻿
-namespace FriendlyRegex.Subexpressions.Lookarounds
+namespace FriendlyRegularExpressions.Subexpressions.Lookarounds
 {
     internal class NegativeLookbehind : Subexpression
     {

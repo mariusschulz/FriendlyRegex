@@ -1,5 +1,5 @@
 ﻿
-namespace FriendlyRegex.Subexpressions
+namespace FriendlyRegularExpressions.Subexpressions
 {
     internal abstract class Subexpression
     {
