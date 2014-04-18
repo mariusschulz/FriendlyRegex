@@ -1,11 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using NUnit.Framework;
 
-namespace FriendlyRegex.Tests
+namespace FriendlyRegularExpressions.Tests
 {
+    [TestFixture]
     public class Class1
     {
+        [Test]
+        public void FluentSyntax()
+        {
+            var expression = new FriendlyRegex()
+                .StartOfLine()
+                .Then("hi")
+                .EndOfLine();
+
+            Console.WriteLine(expression);
+        }
     }
 }

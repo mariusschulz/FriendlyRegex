@@ -60,6 +60,14 @@ namespace FriendlyRegularExpressions
             return Append(optionalExpression);
         }
 
+        public FriendlyRegex Then(string pattern)
+        {
+            string escaped = Escape(pattern);
+            var literalExpression = new Literal(escaped);
+
+            return Append(literalExpression);
+        }
+
         public FriendlyRegex BeginCapture()
         {
             return Append(new OpeningCapturingGroup());

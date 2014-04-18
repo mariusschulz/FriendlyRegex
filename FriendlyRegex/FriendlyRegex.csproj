@@ -44,6 +44,7 @@
     <Compile Include="Subexpressions\EndAnchor.cs" />
     <Compile Include="Subexpressions\Groups\ClosingCapturingGroup.cs" />
     <Compile Include="Subexpressions\Groups\OpeningCapturingGroup.cs" />
+    <Compile Include="Subexpressions\Literal.cs" />
     <Compile Include="Subexpressions\Lookarounds\NegativeLookahead.cs" />
     <Compile Include="Subexpressions\Lookarounds\NegativeLookbehind.cs" />
     <Compile Include="Subexpressions\Lookarounds\PositiveLookahead.cs" />
