@@ -1,19 +1,17 @@
 ﻿
 namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
 {
-    internal class QuestionMarkQuantifier : Subexpression
+    internal class QuestionMarkQuantifier : QuantifiedSubexpression
     {
-        private readonly Subexpression _expression;
-        public Subexpression Expression { get { return _expression; } }
-
         public QuestionMarkQuantifier(Subexpression expression)
+            : base(expression)
         {
-            _expression = expression;
+            // Nothing to do here
         }
 
         public override string GetStringRepresentation()
         {
-            return "(?:" + _expression + ")?";
+            return WrapExpressionInParenthesesIfNecessary() + "?";
         }
     }
 }

@@ -1,19 +1,17 @@
 ﻿
 namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
 {
-    internal class StarQuantifier : Subexpression
+    internal class StarQuantifier : QuantifiedSubexpression
     {
-        private readonly Subexpression _expression;
-        public Subexpression Expression { get { return _expression; } }
-
         public StarQuantifier(Subexpression expression)
+            : base(expression)
         {
-            _expression = expression;
+            // Nothing to do here
         }
 
         public override string GetStringRepresentation()
         {
-            return "(?:" + _expression + ")*";
+            return WrapExpressionInParenthesesIfNecessary() + "*";
         }
     }
 }

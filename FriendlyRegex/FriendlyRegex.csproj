@@ -55,6 +55,7 @@
     <Compile Include="Subexpressions\Lookarounds\PositiveLookahead.cs" />
     <Compile Include="Subexpressions\Lookarounds\PositiveLookbehind.cs" />
     <Compile Include="Subexpressions\Quantifiers\PlusQuantifier.cs" />
+    <Compile Include="Subexpressions\Quantifiers\QuantifiedSubexpression.cs" />
     <Compile Include="Subexpressions\Quantifiers\QuestionMarkQuantifier.cs" />
     <Compile Include="Subexpressions\Quantifiers\StarQuantifier.cs" />
     <Compile Include="Subexpressions\RawPattern.cs" />
