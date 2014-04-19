@@ -1,4 +1,5 @@
-﻿
+﻿using System.Text.RegularExpressions;
+
 namespace FriendlyRegularExpressions.Subexpressions
 {
     internal class Literal : Subexpression
@@ -8,7 +9,7 @@ namespace FriendlyRegularExpressions.Subexpressions
 
         public Literal(string pattern)
         {
-            _pattern = pattern;
+            _pattern = Regex.Escape(pattern);
         }
 
         public override string GetStringRepresentation()
