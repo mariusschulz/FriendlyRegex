@@ -9,11 +9,11 @@ namespace FriendlyRegularExpressions
 {
     public class FriendlyRegex
     {
-        private readonly List<Subexpression> _subexpressions;
+        private readonly ICollection<Subexpression> _subexpressions;
 
         public FriendlyRegex()
         {
-            _subexpressions = new List<Subexpression>();
+            _subexpressions = new LinkedList<Subexpression>();
         }
 
         public override string ToString()
