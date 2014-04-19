@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Subexpressions;
 using FriendlyRegularExpressions.Subexpressions.Groups;
@@ -18,6 +19,30 @@ namespace FriendlyRegularExpressions
 
         public override string ToString()
         {
+            int nestingDepth = 0;
+
+            foreach (var expression in _subexpressions)
+            {
+                if (expression is OpeningCapturingGroup)
+                {
+                    nestingDepth++;
+                }
+                else if (expression is ClosingCapturingGroup)
+                {
+                    nestingDepth--;
+                }
+
+                if (nestingDepth < 0)
+                {
+                    throw new InvalidOperationException("Too many closing parentheses");
+                }
+            }
+
+            if (nestingDepth > 0)
+            {
+                throw new InvalidOperationException("Too few closing parentheses");
+            }
+
             return string.Join(string.Empty, _subexpressions);
         }
 
