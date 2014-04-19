@@ -11,8 +11,10 @@ namespace FriendlyRegularExpressions.Tests
         {
             var expression = new FriendlyRegex()
                 .StartOfLine()
+                .ThenMaybeSomething()
                 .Then(Multiple.Digits)
-                .ThenMaybe("$") 
+                .ThenMaybe("$")
+                .ThenSomething()
                 .EndOfLine();
 
             var regex = expression.ToRegex();

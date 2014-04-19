@@ -90,6 +90,20 @@ namespace FriendlyRegularExpressions
             return Append(rawPattern);
         }
 
+        public FriendlyRegex ThenSomething()
+        {
+            var anythingExpression = new PlusQuantifier(new Dot());
+
+            return Append(anythingExpression);
+        }
+
+        public FriendlyRegex ThenMaybeSomething()
+        {
+            var anythingExpression = new StarQuantifier(new Dot());
+
+            return Append(anythingExpression);
+        }
+
         public FriendlyRegex BeginCapture()
         {
             return Append(new OpeningCapturingGroup());
