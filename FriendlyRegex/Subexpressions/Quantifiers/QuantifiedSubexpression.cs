@@ -29,7 +29,7 @@ namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
 
             var literal = _expression as Literal;
 
-            if (literal != null && Regex.Unescape(literal.Pattern).Length == 1)
+            if (literal != null && literal.LiteralPattern.Length == 1)
             {
                 return true;
             }
