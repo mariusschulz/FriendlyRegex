@@ -10,10 +10,10 @@ namespace FriendlyRegularExpressions.Subexpressions
         private readonly string _escapedPattern;
         public string EscapedPattern { get { return _escapedPattern; } }
 
-        public Literal(string pattern)
+        public Literal(string literal)
         {
-            _literalPattern = pattern;
-            _escapedPattern = Regex.Escape(pattern);
+            _literalPattern = literal;
+            _escapedPattern = Regex.Escape(literal);
         }
 
         public override string GetStringRepresentation()

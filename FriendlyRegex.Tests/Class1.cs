@@ -13,7 +13,7 @@ namespace FriendlyRegularExpressions.Tests
                 .StartOfLine()
                 .ThenMaybeSomething()
                 .Then(Multiple.Digits)
-                .ThenMaybe("$")
+                .ThenEither("$", "€")
                 .ThenSomething()
                 .EndOfLine();
 

@@ -62,6 +62,11 @@ namespace FriendlyRegularExpressions
             return Append(new PlusQuantifier(expression));
         }
 
+        public FriendlyRegex ThenEither(params Subexpression[] alternatives)
+        {
+            return Append(new Alternation(alternatives));
+        }
+
         public FriendlyRegex StartOfLine()
         {
             return Append(new StartAnchor());

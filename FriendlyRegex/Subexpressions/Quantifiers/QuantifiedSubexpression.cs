@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
+﻿using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
 
 namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
 {
