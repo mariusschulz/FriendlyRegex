@@ -34,13 +34,14 @@ namespace FriendlyRegularExpressions
 
                 if (nestingDepth < 0)
                 {
-                    throw new InvalidOperationException("Too many closing parentheses");
+                    throw new InvalidOperationException("Encountered unexpected closing parenthesis. "
+                        + "Did you attempt to close a capturing group that hasn't been openend before?");
                 }
             }
 
             if (nestingDepth > 0)
             {
-                throw new InvalidOperationException("Too few closing parentheses");
+                throw new InvalidOperationException("Encountered too few closing parentheses (" + nestingDepth + " unclosed)");
             }
 
             return string.Join(string.Empty, _subexpressions);
