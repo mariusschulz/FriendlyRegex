@@ -9,5 +9,10 @@ namespace FriendlyRegularExpressions.Subexpressions
         {
             return GetStringRepresentation();
         }
+
+        public static implicit operator Subexpression(string literal)
+        {
+            return new Literal(literal);
+        }
     }
 }

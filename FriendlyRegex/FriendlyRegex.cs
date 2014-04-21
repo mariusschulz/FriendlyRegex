@@ -52,19 +52,9 @@ namespace FriendlyRegularExpressions
             return new Regex(ToString());
         }
 
-        public FriendlyRegex ThenZeroOrMore(string literal)
-        {
-            return ThenZeroOrMore(new Literal(literal));
-        }
-
         public FriendlyRegex ThenZeroOrMore(Subexpression expression)
         {
             return Append(new StarQuantifier(expression));
-        }
-
-        public FriendlyRegex ThenOneOrMore(string literal)
-        {
-            return ThenOneOrMore(new Literal(literal));
         }
 
         public FriendlyRegex ThenOneOrMore(Subexpression expression)
@@ -82,19 +72,9 @@ namespace FriendlyRegularExpressions
             return Append(new EndAnchor());
         }
 
-        public FriendlyRegex ThenMaybe(string literal)
-        {
-            return ThenMaybe(new Literal(literal));
-        }
-
         public FriendlyRegex ThenMaybe(Subexpression expression)
         {
             return Append(new QuestionMarkQuantifier(expression));
-        }
-
-        public FriendlyRegex Then(string literal)
-        {
-            return Then(new Literal(literal));
         }
 
         public FriendlyRegex Then(Subexpression expression)
@@ -132,19 +112,9 @@ namespace FriendlyRegularExpressions
             return Append(new ClosingCapturingGroup());
         }
 
-        public FriendlyRegex LookingAheadAt(string literal)
-        {
-            return LookingAheadAt(new Literal(literal));
-        }
-
         public FriendlyRegex LookingAheadAt(Subexpression expression)
         {
             return Append(new PositiveLookahead(expression));
-        }
-
-        public FriendlyRegex NotLookingAheadAt(string literal)
-        {
-            return NotLookingAheadAt(new Literal(literal));
         }
 
         public FriendlyRegex NotLookingAheadAt(Subexpression expression)
@@ -152,19 +122,9 @@ namespace FriendlyRegularExpressions
             return Append(new NegativeLookahead(expression));
         }
 
-        public FriendlyRegex LookingBehindAt(string literal)
-        {
-            return LookingBehindAt(new Literal(literal));
-        }
-
         public FriendlyRegex LookingBehindAt(Subexpression expression)
         {
             return Append(new PositiveLookbehind(expression));
-        }
-
-        public FriendlyRegex NotLookingBehindAt(string literal)
-        {
-            return NotLookingBehindAt(new Literal(literal));
         }
 
         public FriendlyRegex NotLookingBehindAt(Subexpression expression)
