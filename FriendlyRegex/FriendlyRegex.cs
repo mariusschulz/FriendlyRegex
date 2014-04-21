@@ -138,9 +138,14 @@ namespace FriendlyRegularExpressions
             return Append(new NegativeLookbehind(expression));
         }
 
-        public FriendlyRegex ThenValueOfCapture(string captureGroupName)
+        public FriendlyRegex ThenValueOfCapture(int groupIndex)
         {
-            return Append(new NamedBackreference(captureGroupName));
+            return Append(new NumberedBackreference(groupIndex));
+        }
+
+        public FriendlyRegex ThenValueOfCapture(string groupName)
+        {
+            return Append(new NamedBackreference(groupName));
         }
 
         private FriendlyRegex Append(Subexpression subexpression)

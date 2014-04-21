@@ -12,13 +12,13 @@ namespace FriendlyRegularExpressions.Tests
         {
             var expression = new FriendlyRegex()
                 .Then(One.WordBoundary)
-                .BeginCapture("word")
+                .BeginCapture()
                     .Then(Multiple.WordCharacters)
                 .EndCapture()
                 .Then(One.WordBoundary)
                 .Then(Multiple.NonWordCharacters)
                 .Then(One.WordBoundary)
-                .ThenValueOfCapture("word")
+                .ThenValueOfCapture(1)
                 .Then(One.WordBoundary);
 
             var regex = expression.ToRegex();

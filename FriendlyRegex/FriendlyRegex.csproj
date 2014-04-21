@@ -45,6 +45,7 @@
     <Compile Include="FriendlyRegex.cs" />
     <Compile Include="Raw.cs" />
     <Compile Include="Subexpressions\Alternation.cs" />
+    <Compile Include="Subexpressions\Backreferences\NumberedBackreference.cs" />
     <Compile Include="Subexpressions\Backreferences\NamedBackreference.cs" />
     <Compile Include="Subexpressions\CharacterClasses\ShorthandCharacterClass.cs" />
     <Compile Include="Subexpressions\Dot.cs" />
