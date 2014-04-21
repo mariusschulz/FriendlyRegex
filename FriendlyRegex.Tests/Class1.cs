@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace FriendlyRegularExpressions.Tests
@@ -10,17 +11,25 @@ namespace FriendlyRegularExpressions.Tests
         public void FluentSyntax()
         {
             var expression = new FriendlyRegex()
-                .StartOfLine()
-                .ThenMaybeSomething()
-                .Then(Multiple.Digits)
-                .ThenEither("$", "€")
-                .ThenSomething()
-                .EndOfLine();
+                .Then(One.WordBoundary)
+                .BeginCapture("word")
+                    .Then(Multiple.WordCharacters)
+                .EndCapture()
+                .Then(One.WordBoundary)
+                .Then(Multiple.NonWordCharacters)
+                .Then(One.WordBoundary)
+                .ThenValueOfCapture("word")
+                .Then(One.WordBoundary);
 
             var regex = expression.ToRegex();
 
             Console.WriteLine(expression);
-            Console.WriteLine(regex.IsMatch("34$"));
+            var matches = regex.Matches("This is is a text text containing some some some repeated words.");
+
+            foreach (Match match in matches)
+            {
+                Console.WriteLine(match);
+            }
         }
     }
 }

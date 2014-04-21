@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Subexpressions;
+using FriendlyRegularExpressions.Subexpressions.Backreferences;
 using FriendlyRegularExpressions.Subexpressions.Groups;
 using FriendlyRegularExpressions.Subexpressions.Lookarounds;
 using FriendlyRegularExpressions.Subexpressions.Quantifiers;
@@ -135,6 +136,11 @@ namespace FriendlyRegularExpressions
         public FriendlyRegex NotLookingBehindAt(Subexpression expression)
         {
             return Append(new NegativeLookbehind(expression));
+        }
+
+        public FriendlyRegex ThenValueOfCapture(string captureGroupName)
+        {
+            return Append(new NamedBackreference(captureGroupName));
         }
 
         private FriendlyRegex Append(Subexpression subexpression)
