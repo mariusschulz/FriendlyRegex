@@ -1,5 +1,8 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Subexpressions;
 using FriendlyRegularExpressions.Subexpressions.Backreferences;
@@ -46,6 +49,28 @@ namespace FriendlyRegularExpressions
             }
 
             return string.Join(string.Empty, _subexpressions);
+        }
+
+        public string ToPrettyString()
+        {
+            var outputBuilder = new StringBuilder();
+
+            using (var outputWriter = new StringWriter(outputBuilder))
+            using (var output = new IndentedTextWriter(outputWriter))
+            {
+                foreach (var expression in _subexpressions)
+                {
+                    if (expression is ClosingCapturingGroup)
+                        output.Indent--;
+
+                    output.WriteLine(expression);
+
+                    if (expression is OpeningCapturingGroup)
+                        output.Indent++;
+                }
+            }
+
+            return outputBuilder.ToString();
         }
 
         public Regex ToRegex()
