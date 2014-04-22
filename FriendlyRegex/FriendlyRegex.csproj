@@ -49,7 +49,6 @@
     <Compile Include="Subexpressions\Backreferences\NamedBackreference.cs" />
     <Compile Include="Subexpressions\CharacterClasses\ShorthandCharacterClass.cs" />
     <Compile Include="Subexpressions\Dot.cs" />
-    <Compile Include="Subexpressions\EndAnchor.cs" />
     <Compile Include="Subexpressions\Groups\ClosingCapturingGroup.cs" />
     <Compile Include="Subexpressions\Groups\OpeningCapturingGroup.cs" />
     <Compile Include="Subexpressions\Literal.cs" />
@@ -62,7 +61,7 @@
     <Compile Include="Subexpressions\Quantifiers\QuestionMarkQuantifier.cs" />
     <Compile Include="Subexpressions\Quantifiers\StarQuantifier.cs" />
     <Compile Include="Subexpressions\RawPattern.cs" />
-    <Compile Include="Subexpressions\StartAnchor.cs" />
+    <Compile Include="Subexpressions\Anchor.cs" />
     <Compile Include="Subexpressions\Subexpression.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

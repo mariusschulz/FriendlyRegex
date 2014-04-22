@@ -95,12 +95,12 @@ namespace FriendlyRegularExpressions
 
         public FriendlyRegex StartOfLine()
         {
-            return Append(new StartAnchor());
+            return Append(new Anchor("^"));
         }
 
         public FriendlyRegex EndOfLine()
         {
-            return Append(new EndAnchor());
+            return Append(new Anchor("$"));
         }
 
         public FriendlyRegex ThenMaybe(Subexpression expression)
