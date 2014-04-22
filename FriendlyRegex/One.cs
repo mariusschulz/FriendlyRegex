@@ -22,7 +22,7 @@ namespace FriendlyRegularExpressions
         static One()
         {
             ArbitraryCharacter = new Dot();
-            
+
             Digit = new ShorthandCharacterClass(@"\d");
             NonDigit = new ShorthandCharacterClass(@"\D");
 
@@ -32,8 +32,8 @@ namespace FriendlyRegularExpressions
             WordCharacter = new ShorthandCharacterClass(@"\w");
             NonWordCharacter = new ShorthandCharacterClass(@"\W");
 
-            WordBoundary = new ShorthandCharacterClass(@"\b");
-            NonWordBoundary = new ShorthandCharacterClass(@"\B");
+            WordBoundary = new Anchor(@"\b");
+            NonWordBoundary = new Anchor(@"\B");
         }
     }
 }
