@@ -19,6 +19,10 @@ namespace FriendlyRegularExpressions
         public static Subexpression WordBoundary { get; private set; }
         public static Subexpression NonWordBoundary { get; private set; }
 
+        public static Subexpression Tab { get; private set; }
+        public static Subexpression NewLine { get; private set; }
+        public static Subexpression CarriageReturn { get; private set; }
+
         static One()
         {
             ArbitraryCharacter = new Dot();
@@ -34,6 +38,10 @@ namespace FriendlyRegularExpressions
 
             WordBoundary = new Anchor(@"\b");
             NonWordBoundary = new Anchor(@"\B");
+
+            Tab = new CharacterEscape(@"\t");
+            NewLine = new CharacterEscape(@"\n");
+            CarriageReturn = new CharacterEscape(@"\r");
         }
     }
 }

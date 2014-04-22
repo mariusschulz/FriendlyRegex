@@ -16,6 +16,10 @@ namespace FriendlyRegularExpressions
         public static Subexpression WordCharacters { get; private set; }
         public static Subexpression NonWordCharacters { get; private set; }
 
+        public static Subexpression Tabs { get; private set; }
+        public static Subexpression NewLines { get; private set; }
+        public static Subexpression CarriageReturns { get; private set; }
+
         static Multiple()
         {
             ArbitraryCharacters = new PlusQuantifier(One.ArbitraryCharacter);
@@ -28,6 +32,10 @@ namespace FriendlyRegularExpressions
 
             WordCharacters = new PlusQuantifier(One.WordCharacter);
             NonWordCharacters = new PlusQuantifier(One.NonWordCharacter);
+
+            Tabs = new PlusQuantifier(One.Tab);
+            NewLines = new PlusQuantifier(One.NewLine);
+            CarriageReturns = new PlusQuantifier(One.CarriageReturn);
         }
     }
 }

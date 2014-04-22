@@ -21,7 +21,9 @@ namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
 
         private bool GroupingParenthesesCanBeOmitted()
         {
-            if (_expression is Dot || _expression is ShorthandCharacterClass)
+            if (_expression is Dot
+                || _expression is ShorthandCharacterClass
+                || _expression is CharacterEscape)
             {
                 return true;
             }

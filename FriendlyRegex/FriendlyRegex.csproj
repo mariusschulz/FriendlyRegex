@@ -48,6 +48,7 @@
     <Compile Include="Subexpressions\Backreferences\NumberedBackreference.cs" />
     <Compile Include="Subexpressions\Backreferences\NamedBackreference.cs" />
     <Compile Include="Subexpressions\CharacterClasses\ShorthandCharacterClass.cs" />
+    <Compile Include="Subexpressions\CharacterEscape.cs" />
     <Compile Include="Subexpressions\Dot.cs" />
     <Compile Include="Subexpressions\Groups\ClosingCapturingGroup.cs" />
     <Compile Include="Subexpressions\Groups\OpeningCapturingGroup.cs" />
