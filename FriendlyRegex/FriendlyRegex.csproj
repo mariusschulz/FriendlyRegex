@@ -47,6 +47,7 @@
     <Compile Include="Subexpressions\Alternation.cs" />
     <Compile Include="Subexpressions\Backreferences\NumberedBackreference.cs" />
     <Compile Include="Subexpressions\Backreferences\NamedBackreference.cs" />
+    <Compile Include="Subexpressions\CharacterClasses\CharacterClass.cs" />
     <Compile Include="Subexpressions\CharacterClasses\ShorthandCharacterClass.cs" />
     <Compile Include="Subexpressions\CharacterEscape.cs" />
     <Compile Include="Subexpressions\Dot.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Subexpressions\Quantifiers\QuantifiedSubexpression.cs" />
     <Compile Include="Subexpressions\Quantifiers\QuestionMarkQuantifier.cs" />
     <Compile Include="Subexpressions\Quantifiers\StarQuantifier.cs" />
+    <Compile Include="Subexpressions\Range.cs" />
     <Compile Include="Subexpressions\RawPattern.cs" />
     <Compile Include="Subexpressions\Anchor.cs" />
     <Compile Include="Subexpressions\Subexpression.cs" />

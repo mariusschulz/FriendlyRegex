@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Subexpressions;
 using FriendlyRegularExpressions.Subexpressions.Backreferences;
+using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
 using FriendlyRegularExpressions.Subexpressions.Groups;
 using FriendlyRegularExpressions.Subexpressions.Lookarounds;
 using FriendlyRegularExpressions.Subexpressions.Quantifiers;
@@ -126,6 +127,11 @@ namespace FriendlyRegularExpressions
         public FriendlyRegex ThenMaybeSomething()
         {
             return Append(new StarQuantifier(new Dot()));
+        }
+
+        public FriendlyRegex ThenRange(string from, string to)
+        {
+            return Append(new CharacterClass(new Range(from, to)));
         }
 
         public FriendlyRegex BeginCapture()
