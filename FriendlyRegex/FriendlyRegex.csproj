@@ -63,6 +63,7 @@
     <Compile Include="Subexpressions\Quantifiers\QuestionMarkQuantifier.cs" />
     <Compile Include="Subexpressions\Quantifiers\StarQuantifier.cs" />
     <Compile Include="Subexpressions\Range.cs" />
+    <Compile Include="RangeBoundary.cs" />
     <Compile Include="Subexpressions\RawPattern.cs" />
     <Compile Include="Subexpressions\Anchor.cs" />
     <Compile Include="Subexpressions\Subexpression.cs" />

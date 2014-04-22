@@ -129,9 +129,14 @@ namespace FriendlyRegularExpressions
             return Append(new StarQuantifier(new Dot()));
         }
 
-        public FriendlyRegex ThenRange(string from, string to)
+        public FriendlyRegex ThenRange(char from, char to)
         {
-            return Append(new CharacterClass(new Range(from, to)));
+            var fromBoundary = RangeBoundary.FromCharacter(from);
+            var toBoundary = RangeBoundary.FromCharacter(to);
+
+            var range = new Range(fromBoundary, toBoundary);
+
+            return Append(new CharacterClass(range));
         }
 
         public FriendlyRegex BeginCapture()
