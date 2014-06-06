@@ -11,20 +11,15 @@ namespace FriendlyRegularExpressions.Tests
         public void FluentSyntax()
         {
             var expression = new FriendlyRegex()
-                .Then(One.WordBoundary)
-                .BeginCapture()
-                    .Then(Multiple.WordCharacters)
-                .EndCapture()
-                .Then(One.WordBoundary)
-                .Then(Multiple.NonWordCharacters)
-                .Then(One.WordBoundary)
-                .ThenValueOfCapture(1)
-                .Then(One.WordBoundary);
-
-            var regex = expression.ToRegex();
+                .Then("http://")
+                .Then("blog.")
+                .Then("mariusschulz").Or("thomasbandt")
+                .Then(".de").Or(".com");
 
             Console.WriteLine(expression);
-            var matches = regex.Matches("This is is a text text containing some some some repeated words.");
+
+            var regex = expression.ToRegex();
+            var matches = regex.Matches("http://blog.mariusschulz.com");
 
             foreach (Match match in matches)
             {

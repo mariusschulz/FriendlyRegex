@@ -2,6 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Subexpressions;
@@ -14,11 +15,11 @@ namespace FriendlyRegularExpressions
 {
     public class FriendlyRegex
     {
-        private readonly ICollection<Subexpression> _subexpressions;
+        private readonly IList<Subexpression> _subexpressions;
 
         public FriendlyRegex()
         {
-            _subexpressions = new LinkedList<Subexpression>();
+            _subexpressions = new List<Subexpression>();
         }
 
         public override string ToString()
@@ -78,106 +79,123 @@ namespace FriendlyRegularExpressions
             return new Regex(ToString());
         }
 
-        public FriendlyRegex ThenZeroOrMore(Subexpression expression)
-        {
-            return Append(new StarQuantifier(expression));
-        }
-
-        public FriendlyRegex ThenOneOrMore(Subexpression expression)
-        {
-            return Append(new PlusQuantifier(expression));
-        }
-
-        public FriendlyRegex ThenEither(params Subexpression[] alternatives)
-        {
-            return Append(new Alternation(alternatives));
-        }
-
-        public FriendlyRegex StartOfLine()
-        {
-            return Append(new StartAnchor());
-        }
-
-        public FriendlyRegex EndOfLine()
-        {
-            return Append(new EndAnchor());
-        }
-
-        public FriendlyRegex ThenMaybe(Subexpression expression)
-        {
-            return Append(new QuestionMarkQuantifier(expression));
-        }
-
-        public FriendlyRegex Then(Subexpression expression)
-        {
-            return Append(expression);
-        }
-
-        public FriendlyRegex ThenRaw(string pattern)
-        {
-            return Append(new RawPattern(pattern));
-        }
-
-        public FriendlyRegex ThenSomething()
-        {
-            return Append(new PlusQuantifier(new Dot()));
-        }
-
-        public FriendlyRegex ThenMaybeSomething()
-        {
-            return Append(new StarQuantifier(new Dot()));
-        }
-
-        public FriendlyRegex BeginCapture()
-        {
-            return Append(new OpeningCapturingGroup());
-        }
-
-        public FriendlyRegex BeginCapture(string name)
-        {
-            return Append(new OpeningCapturingGroup(name));
-        }
-
-        public FriendlyRegex EndCapture()
-        {
-            return Append(new ClosingCapturingGroup());
-        }
-
-        public FriendlyRegex LookingAheadAt(Subexpression expression)
-        {
-            return Append(new PositiveLookahead(expression));
-        }
-
-        public FriendlyRegex NotLookingAheadAt(Subexpression expression)
-        {
-            return Append(new NegativeLookahead(expression));
-        }
-
-        public FriendlyRegex LookingBehindAt(Subexpression expression)
-        {
-            return Append(new PositiveLookbehind(expression));
-        }
-
-        public FriendlyRegex NotLookingBehindAt(Subexpression expression)
-        {
-            return Append(new NegativeLookbehind(expression));
-        }
-
-        public FriendlyRegex ThenValueOfCapture(int groupIndex)
-        {
-            return Append(new NumberedBackreference(groupIndex));
-        }
-
-        public FriendlyRegex ThenValueOfCapture(string groupName)
-        {
-            return Append(new NamedBackreference(groupName));
-        }
-
-        private FriendlyRegex Append(Subexpression subexpression)
+        public FriendlyRegex Then(Subexpression subexpression)
         {
             _subexpressions.Add(subexpression);
 
             return this;
+        }
+
+        public FriendlyRegex ThenZeroOrMore(Subexpression expression)
+        {
+            return Then(new StarQuantifier(expression));
+        }
+
+        public FriendlyRegex ThenOneOrMore(Subexpression expression)
+        {
+            return Then(new PlusQuantifier(expression));
+        }
+
+        public FriendlyRegex ThenEither(params Subexpression[] alternatives)
+        {
+            return Then(new Alternation(alternatives));
+        }
+
+        public FriendlyRegex StartOfLine()
+        {
+            return Then(new StartAnchor());
+        }
+
+        public FriendlyRegex EndOfLine()
+        {
+            return Then(new EndAnchor());
+        }
+
+        public FriendlyRegex ThenMaybe(Subexpression expression)
+        {
+            return Then(new QuestionMarkQuantifier(expression));
+        }
+
+        public FriendlyRegex ThenRaw(string pattern)
+        {
+            return Then(new RawPattern(pattern));
+        }
+
+        public FriendlyRegex ThenSomething()
+        {
+            return Then(new PlusQuantifier(new Dot()));
+        }
+
+        public FriendlyRegex ThenMaybeSomething()
+        {
+            return Then(new StarQuantifier(new Dot()));
+        }
+
+        public FriendlyRegex BeginCapture()
+        {
+            return Then(new OpeningCapturingGroup());
+        }
+
+        public FriendlyRegex BeginCapture(string name)
+        {
+            return Then(new OpeningCapturingGroup(name));
+        }
+
+        public FriendlyRegex EndCapture()
+        {
+            return Then(new ClosingCapturingGroup());
+        }
+
+        public FriendlyRegex LookingAheadAt(Subexpression expression)
+        {
+            return Then(new PositiveLookahead(expression));
+        }
+
+        public FriendlyRegex NotLookingAheadAt(Subexpression expression)
+        {
+            return Then(new NegativeLookahead(expression));
+        }
+
+        public FriendlyRegex LookingBehindAt(Subexpression expression)
+        {
+            return Then(new PositiveLookbehind(expression));
+        }
+
+        public FriendlyRegex NotLookingBehindAt(Subexpression expression)
+        {
+            return Then(new NegativeLookbehind(expression));
+        }
+
+        public FriendlyRegex ThenValueOfCapture(int groupIndex)
+        {
+            return Then(new NumberedBackreference(groupIndex));
+        }
+
+        public FriendlyRegex ThenValueOfCapture(string groupName)
+        {
+            return Then(new NamedBackreference(groupName));
+        }
+
+        public FriendlyRegex Or(Subexpression expression)
+        {
+            var lastToken = _subexpressions.Last();
+            var newAlternatives = new List<Subexpression>();
+
+            var alternation = lastToken as Alternation;
+            if (alternation != null)
+            {
+                newAlternatives.AddRange(alternation.Alternatives);
+                newAlternatives.Add(expression);
+            }
+            else
+            {
+                newAlternatives.Add(lastToken);
+                newAlternatives.Add(expression);
+            }
+
+            _subexpressions.Remove(lastToken);
+
+            return Then(new Alternation(newAlternatives));
         }
     }
 }
