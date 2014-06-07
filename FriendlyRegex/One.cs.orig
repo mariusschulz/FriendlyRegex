@@ -18,13 +18,17 @@ namespace FriendlyRegularExpressions
         public static readonly RegularExpression WordBoundary;
         public static readonly RegularExpression NonWordBoundary;
 
-        public static RegularExpression Tab { get; private set; }
-        public static RegularExpression NewLine { get; private set; }
-        public static RegularExpression CarriageReturn { get; private set; }
+        public static Subexpression Tab { get; private set; }
+        public static Subexpression NewLine { get; private set; }
+        public static Subexpression CarriageReturn { get; private set; }
 
         static One()
         {
+<<<<<<< HEAD
             ArbitraryCharacter = Dot.Instance;
+=======
+            ArbitraryCharacter = new Dot();
+>>>>>>> origin/master
 
             Digit = new ShorthandCharacterClass(@"\d");
             NonDigit = new ShorthandCharacterClass(@"\D");
@@ -35,8 +39,8 @@ namespace FriendlyRegularExpressions
             WordCharacter = new ShorthandCharacterClass(@"\w");
             NonWordCharacter = new ShorthandCharacterClass(@"\W");
 
-            WordBoundary = Anchor.WordBoundary;
-            NonWordBoundary = Anchor.NonWordBoundary;
+            WordBoundary = new Anchor(@"\b");
+            NonWordBoundary = new Anchor(@"\B");
 
             Tab = new CharacterEscape(@"\t");
             NewLine = new CharacterEscape(@"\n");

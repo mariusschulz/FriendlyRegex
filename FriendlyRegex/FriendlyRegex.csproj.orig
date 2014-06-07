@@ -48,13 +48,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegularExpression.cs" />
     <Compile Include="Raw.cs" />
+<<<<<<< HEAD
     <Compile Include="Alternation.cs" />
     <Compile Include="Backreferences\NumberedBackreference.cs" />
     <Compile Include="Backreferences\NamedBackreference.cs" />
     <Compile Include="CharacterClasses\ShorthandCharacterClass.cs" />
-    <Compile Include="CharacterClass.cs" />
     <Compile Include="Dot.cs" />
-    <Compile Include="CharacterEscape.cs" />
+    <Compile Include="EndAnchor.cs" />
     <Compile Include="Groups\ClosingCapturingGroup.cs" />
     <Compile Include="Groups\OpeningCapturingGroup.cs" />
     <Compile Include="Literal.cs" />
@@ -67,9 +67,32 @@
     <Compile Include="Quantifiers\QuestionMarkQuantifier.cs" />
     <Compile Include="Quantifiers\StarQuantifier.cs" />
     <Compile Include="RawPattern.cs" />
-    <Compile Include="Range.cs" />
+    <Compile Include="StartAnchor.cs" />
+=======
+    <Compile Include="Subexpressions\Alternation.cs" />
+    <Compile Include="Subexpressions\Backreferences\NumberedBackreference.cs" />
+    <Compile Include="Subexpressions\Backreferences\NamedBackreference.cs" />
+    <Compile Include="Subexpressions\CharacterClasses\CharacterClass.cs" />
+    <Compile Include="Subexpressions\CharacterClasses\ShorthandCharacterClass.cs" />
+    <Compile Include="Subexpressions\CharacterEscape.cs" />
+    <Compile Include="Subexpressions\Dot.cs" />
+    <Compile Include="Subexpressions\Groups\ClosingCapturingGroup.cs" />
+    <Compile Include="Subexpressions\Groups\OpeningCapturingGroup.cs" />
+    <Compile Include="Subexpressions\Literal.cs" />
+    <Compile Include="Subexpressions\Lookarounds\NegativeLookahead.cs" />
+    <Compile Include="Subexpressions\Lookarounds\NegativeLookbehind.cs" />
+    <Compile Include="Subexpressions\Lookarounds\PositiveLookahead.cs" />
+    <Compile Include="Subexpressions\Lookarounds\PositiveLookbehind.cs" />
+    <Compile Include="Subexpressions\Quantifiers\PlusQuantifier.cs" />
+    <Compile Include="Subexpressions\Quantifiers\QuantifiedSubexpression.cs" />
+    <Compile Include="Subexpressions\Quantifiers\QuestionMarkQuantifier.cs" />
+    <Compile Include="Subexpressions\Quantifiers\StarQuantifier.cs" />
+    <Compile Include="Subexpressions\Range.cs" />
     <Compile Include="RangeBoundary.cs" />
-    <Compile Include="Anchor.cs" />
+    <Compile Include="Subexpressions\RawPattern.cs" />
+    <Compile Include="Subexpressions\Anchor.cs" />
+    <Compile Include="Subexpressions\Subexpression.cs" />
+>>>>>>> origin/master
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -41,7 +41,7 @@ namespace FriendlyRegularExpressions
         //{
         //    int nestingDepth = 0;
 
-        //    foreach (var expression in _subexpressions)
+        //    foreach (var expression in _RegularExpressions)
         //    {
         //        if (expression is OpeningCapturingGroup)
         //        {
@@ -64,7 +64,7 @@ namespace FriendlyRegularExpressions
         //        throw new InvalidOperationException("Encountered too few closing parentheses (" + nestingDepth + " unclosed)");
         //    }
 
-        //    return string.Join(string.Empty, _subexpressions);
+        //    return string.Join(string.Empty, _RegularExpressions);
         //}
 
         public override string ToString()
@@ -79,7 +79,7 @@ namespace FriendlyRegularExpressions
         //    using (var outputWriter = new StringWriter(outputBuilder))
         //    using (var output = new IndentedTextWriter(outputWriter))
         //    {
-        //        foreach (var expression in _subexpressions)
+        //        foreach (var expression in _RegularExpressions)
         //        {
         //            if (expression is ClosingCapturingGroup)
         //                output.Indent--;
@@ -184,12 +184,12 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression StartOfLine()
         {
-            return ConcatenateThisWith(new StartAnchor());
+            return ConcatenateThisWith(Anchor.StartOfStringOrLine);
         }
 
         public RegularExpression EndOfLine()
         {
-            return ConcatenateThisWith(new EndAnchor());
+            return ConcatenateThisWith(Anchor.EndOfStringOrLine);
         }
 
         public RegularExpression After(RegularExpression expression)
@@ -264,7 +264,7 @@ namespace FriendlyRegularExpressions
 
         //public FriendlyRegex Or(RegularExpression expression)
         //{
-        //    var lastToken = _subexpressions.Last();
+        //    var lastToken = _RegularExpressions.Last();
         //    var newAlternatives = new List<RegularExpression>();
 
         //    var alternation = lastToken as Alternation;
@@ -279,7 +279,7 @@ namespace FriendlyRegularExpressions
         //        newAlternatives.Add(expression);
         //    }
 
-        //    _subexpressions.Remove(lastToken);
+        //    _RegularExpressions.Remove(lastToken);
 
         //    return Then(new Alternation(newAlternatives));
         //}
