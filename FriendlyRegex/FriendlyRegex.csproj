@@ -41,7 +41,9 @@
   <ItemGroup>
     <Compile Include="Epsilon.cs" />
     <Compile Include="Concatenation.cs" />
-    <Compile Include="Multiple.cs" />
+    <Compile Include="Greediness.cs" />
+    <Compile Include="ZeroOrMore.cs" />
+    <Compile Include="OneOrMore.cs" />
     <Compile Include="One.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegularExpression.cs" />

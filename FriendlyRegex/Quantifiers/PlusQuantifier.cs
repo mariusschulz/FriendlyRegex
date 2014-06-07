@@ -2,25 +2,22 @@
 {
     internal class PlusQuantifier : QuantifiedRegularExpression
     {
+        protected override string GreedyQuantifierSymbol
+        {
+            get { return "+"; }
+        }
+
         private PlusQuantifier(RegularExpression expression)
-            : base(expression)
+            : base(expression, Greediness.Greedy)
         {
             // Nothing to do here
         }
 
-        public override string GetStringRepresentation()
+        public static RegularExpression GreedilyQuantify(RegularExpression expression)
         {
-            return WrapExpressionInParenthesesIfNecessary() + "+";
-        }
-
-        public static RegularExpression Quantify(RegularExpression expression)
-        {
-            if (string.IsNullOrEmpty(expression.ToString()))
-            {
-                return Epsilon.Instance;
-            }
-
-            return new PlusQuantifier(expression);
+            return expression.IsEmpty
+                ? Epsilon
+                : new PlusQuantifier(expression);
         }
     }
 }

@@ -5,18 +5,34 @@ namespace FriendlyRegularExpressions.Quantifiers
     internal abstract class QuantifiedRegularExpression : RegularExpression
     {
         private readonly RegularExpression _expression;
-        public RegularExpression Expression { get { return _expression; } }
+        private readonly Greediness _greediness;
 
-        protected QuantifiedRegularExpression(RegularExpression expression)
+        protected abstract string GreedyQuantifierSymbol { get; }
+
+        protected QuantifiedRegularExpression(RegularExpression expression, Greediness greediness)
         {
             _expression = expression;
+            _greediness = greediness;
         }
 
         protected string WrapExpressionInParenthesesIfNecessary()
         {
             return GroupingParenthesesCanBeOmitted()
-                ? Expression.ToString()
-                : "(?:" + Expression + ")";
+                ? _expression.ToString()
+                : "(?:" + _expression + ")";
+        }
+
+        public override string GetStringRepresentation()
+        {
+            string expression = WrapExpressionInParenthesesIfNecessary();
+            string quantifiedExpression = expression + GreedyQuantifierSymbol;
+
+            if (_greediness == Greediness.Lazy)
+            {
+                quantifiedExpression += "?";
+            }
+
+            return quantifiedExpression;
         }
 
         private bool GroupingParenthesesCanBeOmitted()

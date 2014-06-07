@@ -1,12 +1,12 @@
 ﻿namespace FriendlyRegularExpressions
 {
-    public class Epsilon : RegularExpression
+    class Epsilon : RegularExpression
     {
-        public static readonly Epsilon Instance;
+        public static Epsilon Instance;
 
         private Epsilon()
         {
-            
+
         }
 
         static Epsilon()

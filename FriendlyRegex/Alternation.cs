@@ -25,7 +25,7 @@ namespace FriendlyRegularExpressions
         {
             if (expressions.Length == 0)
             {
-                return Epsilon.Instance;
+                return Epsilon;
             }
 
             if (expressions.Length == 1)

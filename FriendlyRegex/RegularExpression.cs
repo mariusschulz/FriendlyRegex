@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using FriendlyRegularExpressions.CharacterClasses;
 using FriendlyRegularExpressions.Lookarounds;
 using FriendlyRegularExpressions.Quantifiers;
 
@@ -11,9 +10,16 @@ namespace FriendlyRegularExpressions
     {
         public abstract string GetStringRepresentation();
 
+        public static readonly RegularExpression Epsilon;
+
+        static RegularExpression()
+        {
+            Epsilon = FriendlyRegularExpressions.Epsilon.Instance;
+        }
+
         public bool IsEmpty
         {
-            get { return GetStringRepresentation() == string.Empty; }
+            get { return GetStringRepresentation() == String.Empty; }
         }
 
         public virtual string Hierarchy
@@ -100,12 +106,12 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression ThenOptional(RegularExpression expression)
         {
-            if (string.IsNullOrEmpty(expression.ToString()))
+            if (expression.IsEmpty)
             {
                 return this;
             }
 
-            var optionalExpression = QuestionMarkQuantifier.Quantify(expression);
+            var optionalExpression = QuestionMarkQuantifier.GreedilyQuantify(expression);
 
             return ConcatenateThisWith(optionalExpression);
         }
@@ -131,10 +137,18 @@ namespace FriendlyRegularExpressions
             return ThenOptionallyOneOf(expressions);
         }
 
+        public RegularExpression ThenOptionallyAnything()
+        {
+            var anything = new Dot();
+            var optionalAnything = StarQuantifier.LazilyQuantify(anything);
+
+            return ConcatenateThisWith(optionalAnything);
+        }
+
         public RegularExpression ThenOptionallyOneOf(params RegularExpression[] expressions)
         {
             RegularExpression alternation = Alternation.CreateFrom(expressions);
-            RegularExpression optionalAlternation = QuestionMarkQuantifier.Quantify(alternation);
+            RegularExpression optionalAlternation = QuestionMarkQuantifier.GreedilyQuantify(alternation);
 
             return ConcatenateThisWith(optionalAlternation);
         }
@@ -146,28 +160,22 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression ThenZeroOrMore(RegularExpression expression)
         {
-            return ConcatenateThisWith(StarQuantifier.Quantify(expression));
+            return ConcatenateThisWith(StarQuantifier.GreedilyQuantify(expression));
         }
 
         public RegularExpression ThenOneOrMore(RegularExpression expression)
         {
-            return ConcatenateThisWith(PlusQuantifier.Quantify(expression));
+            return ConcatenateThisWith(PlusQuantifier.GreedilyQuantify(expression));
         }
 
         public RegularExpression ThenWhitespace()
         {
-            var whitespace = new ShorthandCharacterClass(@"\s");
-            var repeatedWhitespace = PlusQuantifier.Quantify(whitespace);
-
-            return ConcatenateThisWith(repeatedWhitespace);
+            return ConcatenateThisWith(OneOrMore.WhiteSpaceCharacters);
         }
 
         public RegularExpression ThenOptionalWhitespace()
         {
-            var whitespace = new ShorthandCharacterClass(@"\s");
-            var optionalWhitespace = StarQuantifier.Quantify(whitespace);
-
-            return ConcatenateThisWith(optionalWhitespace);
+            return ConcatenateThisWith(ZeroOrMore.WhiteSpaceCharacters);
         }
 
         //public RegularExpression ThenAtLeast(int minRepetitions, string literal)
@@ -284,7 +292,7 @@ namespace FriendlyRegularExpressions
 
         public static RegularExpression New()
         {
-            return Epsilon.Instance;
+            return Epsilon;
         }
     }
 }

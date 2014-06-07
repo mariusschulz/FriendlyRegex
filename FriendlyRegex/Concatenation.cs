@@ -39,7 +39,7 @@ namespace FriendlyRegularExpressions
 
             if (leftIsEmpty && rightIsEmpty)
             {
-                return Epsilon.Instance;
+                return Epsilon;
             }
 
             if (leftIsEmpty)

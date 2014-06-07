@@ -2,25 +2,29 @@
 {
     internal class StarQuantifier : QuantifiedRegularExpression
     {
-        private StarQuantifier(RegularExpression expression)
-            : base(expression)
+        protected override string GreedyQuantifierSymbol
+        {
+            get { return "*"; }
+        }
+
+        private StarQuantifier(RegularExpression expression, Greediness greediness = Greediness.Greedy)
+            : base(expression, greediness)
         {
             // Nothing to do here
         }
 
-        public override string GetStringRepresentation()
+        public static RegularExpression GreedilyQuantify(RegularExpression expression)
         {
-            return WrapExpressionInParenthesesIfNecessary() + "*";
+            return expression.IsEmpty
+                ? Epsilon
+                : new StarQuantifier(expression);
         }
 
-        public static RegularExpression Quantify(RegularExpression expression)
+        public static RegularExpression LazilyQuantify(RegularExpression expression)
         {
-            if (string.IsNullOrEmpty(expression.ToString()))
-            {
-                return Epsilon.Instance;
-            }
-
-            return new StarQuantifier(expression);
+            return expression.IsEmpty
+                ? Epsilon
+                : new StarQuantifier(expression);
         }
     }
 }
