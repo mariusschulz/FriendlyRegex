@@ -1,7 +1,6 @@
-﻿
-namespace FriendlyRegularExpressions.Subexpressions.CharacterClasses
+﻿namespace FriendlyRegularExpressions.CharacterClasses
 {
-    internal class ShorthandCharacterClass : Subexpression
+    internal class ShorthandCharacterClass : RegularExpression
     {
         private readonly string _shorthandNotation;
         public string ShorthandNotation { get { return _shorthandNotation; } }

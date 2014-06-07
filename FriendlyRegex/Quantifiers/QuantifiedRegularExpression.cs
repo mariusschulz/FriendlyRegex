@@ -1,13 +1,13 @@
-﻿using FriendlyRegularExpressions.Subexpressions.CharacterClasses;
+﻿using FriendlyRegularExpressions.CharacterClasses;
 
-namespace FriendlyRegularExpressions.Subexpressions.Quantifiers
+namespace FriendlyRegularExpressions.Quantifiers
 {
-    internal abstract class QuantifiedSubexpression : Subexpression
+    internal abstract class QuantifiedRegularExpression : RegularExpression
     {
-        private readonly Subexpression _expression;
-        public Subexpression Expression { get { return _expression; } }
+        private readonly RegularExpression _expression;
+        public RegularExpression Expression { get { return _expression; } }
 
-        protected QuantifiedSubexpression(Subexpression expression)
+        protected QuantifiedRegularExpression(RegularExpression expression)
         {
             _expression = expression;
         }

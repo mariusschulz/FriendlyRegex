@@ -10,16 +10,33 @@ namespace FriendlyRegularExpressions.Tests
         [Test]
         public void FluentSyntax()
         {
-            var expression = new FriendlyRegex()
-                .Then("http://")
-                .Then("blog.")
-                .Then("mariusschulz").Or("thomasbandt")
-                .Then(".de").Or(".com");
+            string[] subdomains = { "www", "blog", "speaking" };
 
-            Console.WriteLine(expression);
+            var http = RegularExpression.New()
+                .Then("http")
+                .ThenOptional("s")
+                .Then("://");
 
-            var regex = expression.ToRegex();
-            var matches = regex.Matches("http://blog.mariusschulz.com");
+            var domain = RegularExpression.New()
+                .ThenOneOf(subdomains)
+                .Then('.')
+                .ThenPattern(@"[^.]+")
+                .Then('.')
+                .ThenOneOf("de", "com")
+                .ThenOptional('/');
+
+            var httpUrl = RegularExpression.New()
+                .After('[')
+                .ThenOptionalWhitespace()
+                .Then(http)
+                .Then(domain)
+                .ThenOptionalWhitespace()
+                .Before(']');
+
+            Console.WriteLine(httpUrl.ToString());
+
+            var regex = httpUrl.ToRegex();
+            var matches = regex.Matches("Find my blog under [http://blog.mariusschulz.com]");
 
             foreach (Match match in matches)
             {

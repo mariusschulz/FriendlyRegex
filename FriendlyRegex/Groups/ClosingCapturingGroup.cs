@@ -1,7 +1,8 @@
 ﻿
-namespace FriendlyRegularExpressions.Subexpressions.Groups
+
+namespace FriendlyRegularExpressions.Groups
 {
-    internal class ClosingCapturingGroup : Subexpression
+    internal class ClosingCapturingGroup : RegularExpression
     {
         public override string GetStringRepresentation()
         {

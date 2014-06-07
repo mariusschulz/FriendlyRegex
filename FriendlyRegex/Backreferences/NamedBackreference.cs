@@ -1,7 +1,8 @@
 ﻿
-namespace FriendlyRegularExpressions.Subexpressions.Backreferences
+
+namespace FriendlyRegularExpressions.Backreferences
 {
-    internal class NamedBackreference : Subexpression
+    internal class NamedBackreference : RegularExpression
     {
         private readonly string _groupName;
         public string GroupName { get { return _groupName; } }

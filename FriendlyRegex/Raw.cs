@@ -1,10 +1,8 @@
-﻿using FriendlyRegularExpressions.Subexpressions;
-
-namespace FriendlyRegularExpressions
+﻿namespace FriendlyRegularExpressions
 {
     public static class Raw
     {
-        public static Subexpression Pattern(string rawPattern)
+        public static RegularExpression Pattern(string rawPattern)
         {
             return new RawPattern(rawPattern);
         }

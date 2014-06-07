@@ -1,7 +1,6 @@
-﻿
-namespace FriendlyRegularExpressions.Subexpressions
+﻿namespace FriendlyRegularExpressions
 {
-    class StartAnchor : Subexpression
+    class StartAnchor : RegularExpression
     {
         public override string GetStringRepresentation()
         {

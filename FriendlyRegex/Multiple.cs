@@ -1,33 +1,32 @@
-﻿using FriendlyRegularExpressions.Subexpressions;
-using FriendlyRegularExpressions.Subexpressions.Quantifiers;
+﻿using FriendlyRegularExpressions.Quantifiers;
 
 namespace FriendlyRegularExpressions
 {
     public static class Multiple
     {
-        public static Subexpression ArbitraryCharacters { get; private set; }
+        public static readonly RegularExpression ArbitraryCharacters;
 
-        public static Subexpression Digits { get; private set; }
-        public static Subexpression NonDigits { get; private set; }
+        public static readonly RegularExpression Digits;
+        public static readonly RegularExpression NonDigits;
 
-        public static Subexpression WhiteSpaceCharacters { get; private set; }
-        public static Subexpression NonWhiteSpaceCharacters { get; private set; }
+        public static readonly RegularExpression WhiteSpaceCharacters;
+        public static readonly RegularExpression NonWhiteSpaceCharacters;
 
-        public static Subexpression WordCharacters { get; private set; }
-        public static Subexpression NonWordCharacters { get; private set; }
+        public static readonly RegularExpression WordCharacters;
+        public static readonly RegularExpression NonWordCharacters;
 
         static Multiple()
         {
-            ArbitraryCharacters = new PlusQuantifier(One.ArbitraryCharacter);
+            ArbitraryCharacters = PlusQuantifier.Quantify(One.ArbitraryCharacter);
 
-            Digits = new PlusQuantifier(One.Digit);
-            NonDigits = new PlusQuantifier(One.NonDigit);
+            Digits = PlusQuantifier.Quantify(One.Digit);
+            NonDigits = PlusQuantifier.Quantify(One.NonDigit);
 
-            WhiteSpaceCharacters = new PlusQuantifier(One.WhiteSpaceCharacter);
-            NonWhiteSpaceCharacters = new PlusQuantifier(One.NonWhiteSpaceCharacter);
+            WhiteSpaceCharacters = PlusQuantifier.Quantify(One.WhiteSpaceCharacter);
+            NonWhiteSpaceCharacters = PlusQuantifier.Quantify(One.NonWhiteSpaceCharacter);
 
-            WordCharacters = new PlusQuantifier(One.WordCharacter);
-            NonWordCharacters = new PlusQuantifier(One.NonWordCharacter);
+            WordCharacters = PlusQuantifier.Quantify(One.WordCharacter);
+            NonWordCharacters = PlusQuantifier.Quantify(One.NonWordCharacter);
         }
     }
 }

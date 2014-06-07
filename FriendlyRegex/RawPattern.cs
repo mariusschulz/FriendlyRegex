@@ -1,7 +1,6 @@
-﻿
-namespace FriendlyRegularExpressions.Subexpressions
+﻿namespace FriendlyRegularExpressions
 {
-    internal class RawPattern : Subexpression
+    internal class RawPattern : RegularExpression
     {
         private readonly string _pattern;
         public string Pattern { get { return _pattern; } }

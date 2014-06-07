@@ -1,7 +1,8 @@
 ﻿
-namespace FriendlyRegularExpressions.Subexpressions.Groups
+
+namespace FriendlyRegularExpressions.Groups
 {
-    internal class OpeningCapturingGroup : Subexpression
+    internal class OpeningCapturingGroup : RegularExpression
     {
         private readonly bool _isNamed;
 

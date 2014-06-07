@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace FriendlyRegularExpressions.Subexpressions
+namespace FriendlyRegularExpressions
 {
-    internal class Literal : Subexpression
+    internal class Literal : RegularExpression
     {
         private readonly string _literalPattern;
         public string LiteralPattern { get { return _literalPattern; } }

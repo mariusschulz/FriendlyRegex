@@ -1,7 +1,8 @@
 ﻿
-namespace FriendlyRegularExpressions.Subexpressions.Backreferences
+
+namespace FriendlyRegularExpressions.Backreferences
 {
-    internal class NumberedBackreference : Subexpression
+    internal class NumberedBackreference : RegularExpression
     {
         private readonly int _groupIndex;
         public int GroupIndex { get { return _groupIndex; } }
