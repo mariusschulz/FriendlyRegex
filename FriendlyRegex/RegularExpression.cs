@@ -104,7 +104,7 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(expression);
         }
 
-        public RegularExpression ThenOptional(RegularExpression expression)
+        public RegularExpression ThenOptionally(RegularExpression expression)
         {
             if (expression.IsEmpty)
             {
@@ -125,7 +125,7 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression ThenOneOf(params RegularExpression[] expressions)
         {
-            RegularExpression alternation = Alternation.CreateFrom(expressions);
+            RegularExpression alternation = Alternation.Between(expressions);
 
             return ConcatenateThisWith(alternation);
         }
@@ -139,15 +139,14 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression ThenOptionallyAnything()
         {
-            var anything = new Dot();
-            var optionalAnything = StarQuantifier.LazilyQuantify(anything);
+            var optionalAnything = StarQuantifier.LazilyQuantify(One.ArbitraryCharacter);
 
             return ConcatenateThisWith(optionalAnything);
         }
 
         public RegularExpression ThenOptionallyOneOf(params RegularExpression[] expressions)
         {
-            RegularExpression alternation = Alternation.CreateFrom(expressions);
+            RegularExpression alternation = Alternation.Between(expressions);
             RegularExpression optionalAlternation = QuestionMarkQuantifier.GreedilyQuantify(alternation);
 
             return ConcatenateThisWith(optionalAlternation);

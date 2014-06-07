@@ -15,9 +15,12 @@
 
         public static RegularExpression GreedilyQuantify(RegularExpression expression)
         {
-            return expression.IsEmpty
-                ? Epsilon
-                : new QuestionMarkQuantifier(expression);
+            if (expression.IsEmpty)
+            {
+                return Epsilon;
+            }
+
+            return new QuestionMarkQuantifier(expression);
         }
     }
 }

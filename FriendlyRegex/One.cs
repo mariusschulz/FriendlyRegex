@@ -20,7 +20,7 @@ namespace FriendlyRegularExpressions
 
         static One()
         {
-            ArbitraryCharacter = new Dot();
+            ArbitraryCharacter = Dot.Instance;
 
             Digit = new ShorthandCharacterClass(@"\d");
             NonDigit = new ShorthandCharacterClass(@"\D");

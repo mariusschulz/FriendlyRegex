@@ -14,7 +14,7 @@ namespace FriendlyRegularExpressions.Tests
 
             var http = RegularExpression.New()
                 .Then("http")
-                .ThenOptional("s")
+                .ThenOptionally("s")
                 .Then("://");
 
             var domain = RegularExpression.New()
@@ -22,8 +22,9 @@ namespace FriendlyRegularExpressions.Tests
                 .Then('.')
                 .ThenPattern(@"[^.]+")
                 .Then('.')
+                .ThenOptionally(OneOrMore.NonDigits)
                 .ThenOneOf("de", "com")
-                .ThenOptional('/');
+                .ThenOptionally('/');
 
             var httpUrl = RegularExpression.New()
                 .After('[')

@@ -2,7 +2,7 @@
 
 namespace FriendlyRegularExpressions
 {
-    internal class Alternation : RegularExpression
+    public class Alternation : RegularExpression
     {
         private readonly IEnumerable<RegularExpression> _alternatives;
 
@@ -21,7 +21,7 @@ namespace FriendlyRegularExpressions
             get { return "Alternation:" + GetStringRepresentation(); }
         }
 
-        public static RegularExpression CreateFrom(RegularExpression[] expressions)
+        public static RegularExpression Between(RegularExpression[] expressions)
         {
             if (expressions.Length == 0)
             {
