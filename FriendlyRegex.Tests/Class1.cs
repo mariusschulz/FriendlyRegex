@@ -36,7 +36,7 @@ namespace FriendlyRegularExpressions.Tests
 
             var markdownLink = httpUrl
                 .Then('(')
-                .ThenCapture(OneOrMore.ArbitraryCharacters)
+                .ThenNamedCapture("value", OneOrMore.ArbitraryCharacters)
                 .Then(')');
 
             Console.WriteLine(markdownLink.ToString());

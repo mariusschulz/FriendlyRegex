@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Groups;
 using FriendlyRegularExpressions.Lookarounds;
@@ -221,11 +220,6 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(NegativeLookbehind.At(expression));
         }
 
-        public RegularExpression ThenCapture(RegularExpression expression)
-        {
-            return BeginCapture().ConcatenateThisWith(expression).EndCapture();
-        }
-
         public RegularExpression BeginCapture()
         {
             return ConcatenateThisWith(new OpeningCapturingGroup());
@@ -234,6 +228,18 @@ namespace FriendlyRegularExpressions
         public RegularExpression EndCapture()
         {
             return ConcatenateThisWith(new ClosingCapturingGroup());
+        }
+
+        public RegularExpression ThenCapture(RegularExpression expression)
+        {
+            return BeginCapture().ConcatenateThisWith(expression).EndCapture();
+        }
+
+        public RegularExpression ThenNamedCapture(string groupName, RegularExpression expression)
+        {
+            return ConcatenateThisWith(new OpeningCapturingGroup(groupName))
+                .ConcatenateThisWith(expression)
+                .EndCapture();
         }
 
         private RegularExpression ConcatenateThisWith(RegularExpression expression)
