@@ -184,7 +184,7 @@ namespace FriendlyRegularExpressions
             return BeginCapture().ConcatenateThisWith(expression).EndCapture();
         }
 
-        public RegularExpression ThenNamedCapture(string groupName, RegularExpression expression)
+        public RegularExpression ThenCapture(string groupName, RegularExpression expression)
         {
             return ConcatenateThisWith(new OpeningCapturingGroup(groupName))
                 .ConcatenateThisWith(expression)

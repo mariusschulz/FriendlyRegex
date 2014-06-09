@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace FriendlyRegularExpressions
 {
@@ -30,6 +31,11 @@ namespace FriendlyRegularExpressions
                     + string.Join(string.Empty, _expressions.Select(x => x.Hierarchy))
                     + "]";
             }
+        }
+
+        public static RegularExpression Concatenate(params RegularExpression[] expressions)
+        {
+            return expressions.Aggregate(Concatenate);
         }
 
         public static RegularExpression Concatenate(RegularExpression left, RegularExpression right)

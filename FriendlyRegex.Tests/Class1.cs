@@ -11,11 +11,7 @@ namespace FriendlyRegularExpressions.Tests
         public void RepeatedWords()
         {
             var repeatedWords = RegularExpression.New()
-                .BeginCapture("word")
-                    .Then(One.WordBoundary)
-                    .Then(OneOrMore.WordCharacters)
-                    .Then(One.WordBoundary)
-                .EndCapture()
+                .ThenCapture("word", One.Word)
                 .ThenWhitespace()
                 .ThenValueOfCapture("word");
 
@@ -52,7 +48,7 @@ namespace FriendlyRegularExpressions.Tests
 
             var markdownLink = httpUrl
                 .Then('(')
-                .ThenNamedCapture("value", OneOrMore.ArbitraryCharacters)
+                .ThenCapture("value", OneOrMore.ArbitraryCharacters)
                 .Then(')');
 
             OutputPatternAndMatches(markdownLink.ToRegex(),

@@ -12,6 +12,7 @@ namespace FriendlyRegularExpressions
         public static readonly RegularExpression WhiteSpaceCharacter;
         public static readonly RegularExpression NonWhiteSpaceCharacter;
 
+        public static readonly RegularExpression Word;
         public static readonly RegularExpression WordCharacter;
         public static readonly RegularExpression NonWordCharacter;
 
@@ -32,6 +33,7 @@ namespace FriendlyRegularExpressions
             WhiteSpaceCharacter = new ShorthandCharacterClass(@"\s");
             NonWhiteSpaceCharacter = new ShorthandCharacterClass(@"\S");
 
+            Word = Concatenation.Concatenate(WordBoundary, OneOrMore.WordCharacters, WordBoundary);
             WordCharacter = new ShorthandCharacterClass(@"\w");
             NonWordCharacter = new ShorthandCharacterClass(@"\W");
 
