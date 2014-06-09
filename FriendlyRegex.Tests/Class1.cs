@@ -27,21 +27,32 @@ namespace FriendlyRegularExpressions.Tests
                 .ThenOptionally('/');
 
             var httpUrl = RegularExpression.New()
-                .After('[')
+                .Then('[')
                 .ThenOptionalWhitespace()
                 .Then(http)
                 .Then(domain)
                 .ThenOptionalWhitespace()
-                .Before(']');
+                .Then(']');
 
-            Console.WriteLine(httpUrl.ToString());
+            var markdownLink = httpUrl
+                .Then('(')
+                .ThenCapture(OneOrMore.ArbitraryCharacters)
+                .Then(')');
 
-            var regex = httpUrl.ToRegex();
-            var matches = regex.Matches("Find my blog under [http://blog.mariusschulz.com]");
+            Console.WriteLine(markdownLink.ToString());
+
+            var regex = markdownLink.ToRegex();
+            var matches = regex.Matches("Find my blog under [http://blog.mariusschulz.com](this page)");
 
             foreach (Match match in matches)
             {
+                Console.WriteLine();
                 Console.WriteLine(match);
+
+                foreach (Group group in match.Groups)
+                {
+                    Console.WriteLine("   - {0}", group.Value);
+                }
             }
         }
     }

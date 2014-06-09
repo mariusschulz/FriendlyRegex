@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using FriendlyRegularExpressions.Groups;
 using FriendlyRegularExpressions.Lookarounds;
 using FriendlyRegularExpressions.Quantifiers;
 
@@ -177,6 +179,13 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(ZeroOrMore.WhiteSpaceCharacters);
         }
 
+        public RegularExpression ThenAnything()
+        {
+            var anything = PlusQuantifier.LazilyQuantify(One.ArbitraryCharacter);
+
+            return ConcatenateThisWith(anything);
+        }
+
         //public RegularExpression ThenAtLeast(int minRepetitions, string literal)
         //{
         //    throw new NotImplementedException();
@@ -210,6 +219,21 @@ namespace FriendlyRegularExpressions
         public RegularExpression NotBehind(RegularExpression expression)
         {
             return ConcatenateThisWith(NegativeLookbehind.At(expression));
+        }
+
+        public RegularExpression ThenCapture(RegularExpression expression)
+        {
+            return BeginCapture().ConcatenateThisWith(expression).EndCapture();
+        }
+
+        public RegularExpression BeginCapture()
+        {
+            return ConcatenateThisWith(new OpeningCapturingGroup());
+        }
+
+        public RegularExpression EndCapture()
+        {
+            return ConcatenateThisWith(new ClosingCapturingGroup());
         }
 
         private RegularExpression ConcatenateThisWith(RegularExpression expression)
