@@ -8,7 +8,23 @@ namespace FriendlyRegularExpressions.Tests
     public class Class1
     {
         [Test]
-        public void FluentSyntax()
+        public void RepeatedWords()
+        {
+            var repeatedWords = RegularExpression.New()
+                .BeginCapture("word")
+                    .Then(One.WordBoundary)
+                    .Then(OneOrMore.WordCharacters)
+                    .Then(One.WordBoundary)
+                .EndCapture()
+                .ThenWhitespace()
+                .ThenValueOfCapture("word");
+
+            OutputPatternAndMatches(repeatedWords.ToRegex(),
+                "This is is a sentence with with with with repeated words.");
+        }
+
+        [Test]
+        public static void MarkdownLinks()
         {
             string[] subdomains = { "www", "blog", "speaking" };
 
@@ -39,19 +55,22 @@ namespace FriendlyRegularExpressions.Tests
                 .ThenNamedCapture("value", OneOrMore.ArbitraryCharacters)
                 .Then(')');
 
-            Console.WriteLine(markdownLink.ToString());
+            OutputPatternAndMatches(markdownLink.ToRegex(),
+                "Find my my blog under [http://blog.mariusschulz.com](this this page)");
+        }
 
-            var regex = markdownLink.ToRegex();
-            var matches = regex.Matches("Find my blog under [http://blog.mariusschulz.com](this page)");
+        private static void OutputPatternAndMatches(Regex regex, string input)
+        {
+            Console.WriteLine(regex);
 
-            foreach (Match match in matches)
+            foreach (Match match in regex.Matches(input))
             {
                 Console.WriteLine();
                 Console.WriteLine(match);
 
                 foreach (Group group in match.Groups)
                 {
-                    Console.WriteLine("   - {0}", group.Value);
+                    Console.WriteLine("   - {0}", @group.Value);
                 }
             }
         }

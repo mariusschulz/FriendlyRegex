@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using FriendlyRegularExpressions.Backreferences;
 using FriendlyRegularExpressions.Groups;
 using FriendlyRegularExpressions.Lookarounds;
 using FriendlyRegularExpressions.Quantifiers;
@@ -38,62 +39,10 @@ namespace FriendlyRegularExpressions
             return new Literal(literal);
         }
 
-        //public override string GetStringRepresentation()
-        //{
-        //    int nestingDepth = 0;
-
-        //    foreach (var expression in _RegularExpressions)
-        //    {
-        //        if (expression is OpeningCapturingGroup)
-        //        {
-        //            nestingDepth++;
-        //        }
-        //        else if (expression is ClosingCapturingGroup)
-        //        {
-        //            nestingDepth--;
-        //        }
-
-        //        if (nestingDepth < 0)
-        //        {
-        //            throw new InvalidOperationException("Encountered unexpected closing parenthesis. "
-        //                + "Did you attempt to close a capturing group that hasn't been openend before?");
-        //        }
-        //    }
-
-        //    if (nestingDepth > 0)
-        //    {
-        //        throw new InvalidOperationException("Encountered too few closing parentheses (" + nestingDepth + " unclosed)");
-        //    }
-
-        //    return string.Join(string.Empty, _RegularExpressions);
-        //}
-
         public override string ToString()
         {
             return GetStringRepresentation();
         }
-
-        //public string ToPrettyString()
-        //{
-        //    var outputBuilder = new StringBuilder();
-
-        //    using (var outputWriter = new StringWriter(outputBuilder))
-        //    using (var output = new IndentedTextWriter(outputWriter))
-        //    {
-        //        foreach (var expression in _RegularExpressions)
-        //        {
-        //            if (expression is ClosingCapturingGroup)
-        //                output.Indent--;
-
-        //            output.WriteLine(expression);
-
-        //            if (expression is OpeningCapturingGroup)
-        //                output.Indent++;
-        //        }
-        //    }
-
-        //    return outputBuilder.ToString();
-        //}
 
         public Regex ToRegex()
         {
@@ -185,11 +134,6 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(anything);
         }
 
-        //public RegularExpression ThenAtLeast(int minRepetitions, string literal)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public RegularExpression StartOfLine()
         {
             return ConcatenateThisWith(Anchor.StartOfStringOrLine);
@@ -225,6 +169,11 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(new OpeningCapturingGroup());
         }
 
+        public RegularExpression BeginCapture(string groupName)
+        {
+            return ConcatenateThisWith(new OpeningCapturingGroup(groupName));
+        }
+
         public RegularExpression EndCapture()
         {
             return ConcatenateThisWith(new ClosingCapturingGroup());
@@ -242,55 +191,20 @@ namespace FriendlyRegularExpressions
                 .EndCapture();
         }
 
+        public RegularExpression ThenValueOfCapture(int groupIndex)
+        {
+            return ConcatenateThisWith(new NumberedBackreference(groupIndex));
+        }
+
+        public RegularExpression ThenValueOfCapture(string groupName)
+        {
+            return ConcatenateThisWith(new NamedBackreference(groupName));
+        }
+
         private RegularExpression ConcatenateThisWith(RegularExpression expression)
         {
             return Concatenation.Concatenate(this, expression);
         }
-
-        //public FriendlyRegex EndOfLine()
-        //{
-        //    return Then(new EndAnchor());
-        //}
-
-        //public FriendlyRegex ThenMaybe(RegularExpression expression)
-        //{
-        //    return Then(new QuestionMarkQuantifier(expression));
-        //}
-
-        //public FriendlyRegex ThenSomething()
-        //{
-        //    return Then(new PlusQuantifier(new Dot()));
-        //}
-
-        //public FriendlyRegex ThenMaybeSomething()
-        //{
-        //    return Then(new StarQuantifier(new Dot()));
-        //}
-
-        //public FriendlyRegex BeginCapture()
-        //{
-        //    return Then(new OpeningCapturingGroup());
-        //}
-
-        //public FriendlyRegex BeginCapture(string name)
-        //{
-        //    return Then(new OpeningCapturingGroup(name));
-        //}
-
-        //public FriendlyRegex EndCapture()
-        //{
-        //    return Then(new ClosingCapturingGroup());
-        //}
-
-        //public FriendlyRegex ThenValueOfCapture(int groupIndex)
-        //{
-        //    return Then(new NumberedBackreference(groupIndex));
-        //}
-
-        //public FriendlyRegex ThenValueOfCapture(string groupName)
-        //{
-        //    return Then(new NamedBackreference(groupName));
-        //}
 
         //public FriendlyRegex Or(RegularExpression expression)
         //{
