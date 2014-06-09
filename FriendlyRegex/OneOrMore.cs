@@ -17,7 +17,7 @@ namespace FriendlyRegularExpressions
 
         static OneOrMore()
         {
-            ArbitraryCharacters = PlusQuantifier.GreedilyQuantify(One.ArbitraryCharacter);
+            ArbitraryCharacters = PlusQuantifier.LazilyQuantify(One.ArbitraryCharacter);
 
             Digits = PlusQuantifier.GreedilyQuantify(One.Digit);
             NonDigits = PlusQuantifier.GreedilyQuantify(One.NonDigit);

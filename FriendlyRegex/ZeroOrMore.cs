@@ -17,7 +17,7 @@ namespace FriendlyRegularExpressions
 
         static ZeroOrMore()
         {
-            ArbitraryCharacters = StarQuantifier.GreedilyQuantify(One.ArbitraryCharacter);
+            ArbitraryCharacters = StarQuantifier.LazilyQuantify(One.ArbitraryCharacter);
 
             Digits = StarQuantifier.GreedilyQuantify(One.Digit);
             NonDigits = StarQuantifier.GreedilyQuantify(One.NonDigit);
