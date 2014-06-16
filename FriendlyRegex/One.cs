@@ -1,4 +1,5 @@
 ﻿using FriendlyRegularExpressions.CharacterClasses;
+using FriendlyRegularExpressions.Quantifiers;
 
 namespace FriendlyRegularExpressions
 {
@@ -33,12 +34,13 @@ namespace FriendlyRegularExpressions
             WhiteSpaceCharacter = new ShorthandCharacterClass(@"\s");
             NonWhiteSpaceCharacter = new ShorthandCharacterClass(@"\S");
 
-            Word = Concatenation.Concatenate(WordBoundary, OneOrMore.WordCharacters, WordBoundary);
+            WordBoundary = Anchor.WordBoundary;
+            NonWordBoundary = Anchor.NonWordBoundary;
+
             WordCharacter = new ShorthandCharacterClass(@"\w");
             NonWordCharacter = new ShorthandCharacterClass(@"\W");
 
-            WordBoundary = Anchor.WordBoundary;
-            NonWordBoundary = Anchor.NonWordBoundary;
+            Word = Concatenation.Concatenate(WordBoundary, PlusQuantifier.GreedilyQuantify(WordCharacter), WordBoundary);
 
             Tab = new CharacterEscape(@"\t");
             NewLine = new CharacterEscape(@"\n");
