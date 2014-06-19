@@ -2,9 +2,9 @@
 {
     internal class PositiveLookbehind : RegularExpression
     {
-        private readonly RegularExpression _expression;
+        private readonly IRegularExpression _expression;
 
-        private PositiveLookbehind(RegularExpression expression)
+        private PositiveLookbehind(IRegularExpression expression)
         {
             _expression = expression;
         }
@@ -14,7 +14,7 @@
             return "(?<=" + _expression + ")";
         }
 
-        public static RegularExpression At(RegularExpression expression)
+        public static RegularExpression At(IRegularExpression expression)
         {
             if (expression.IsEmpty)
             {

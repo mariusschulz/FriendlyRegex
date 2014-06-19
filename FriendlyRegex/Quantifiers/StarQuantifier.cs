@@ -7,13 +7,13 @@
             get { return "*"; }
         }
 
-        private StarQuantifier(RegularExpression expression, Greediness greediness = Greediness.Lazy)
+        private StarQuantifier(IRegularExpression expression, Greediness greediness = Greediness.Lazy)
             : base(expression, greediness)
         {
             // Nothing to do here
         }
 
-        public static RegularExpression GreedilyQuantify(RegularExpression expression)
+        public static IRegularExpression GreedilyQuantify(IRegularExpression expression)
         {
             if (expression.IsEmpty)
             {
@@ -23,7 +23,7 @@
             return new StarQuantifier(expression, Greediness.Greedy);
         }
 
-        public static RegularExpression LazilyQuantify(RegularExpression expression)
+        public static IRegularExpression LazilyQuantify(IRegularExpression expression)
         {
             if (expression.IsEmpty)
             {

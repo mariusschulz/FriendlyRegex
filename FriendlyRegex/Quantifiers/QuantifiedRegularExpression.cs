@@ -5,12 +5,12 @@ namespace FriendlyRegularExpressions.Quantifiers
 {
     internal abstract class QuantifiedRegularExpression : RegularExpression
     {
-        private readonly RegularExpression _expression;
+        private readonly IRegularExpression _expression;
         private readonly Greediness _greediness;
 
         protected abstract string GreedyQuantifierSymbol { get; }
 
-        protected QuantifiedRegularExpression(RegularExpression expression, Greediness greediness)
+        protected QuantifiedRegularExpression(IRegularExpression expression, Greediness greediness)
         {
             _expression = expression;
             _greediness = greediness;
@@ -36,13 +36,13 @@ namespace FriendlyRegularExpressions.Quantifiers
             return quantifiedExpression;
         }
 
-        private static bool GroupingParenthesesCanBeOmitted(RegularExpression expression)
+        private static bool GroupingParenthesesCanBeOmitted(IRegularExpression expression)
         {
             return ExpressionDoesNotRequireParentheses(expression)
                 || ExpressionIsSingleCharacterLiteral(expression);
         }
 
-        private static bool ExpressionDoesNotRequireParentheses(RegularExpression expression)
+        private static bool ExpressionDoesNotRequireParentheses(IRegularExpression expression)
         {
             return expression is Dot
                 || expression is GroupingConstruct
@@ -50,7 +50,7 @@ namespace FriendlyRegularExpressions.Quantifiers
                 || expression is ShorthandCharacterClass;
         }
 
-        private static bool ExpressionIsSingleCharacterLiteral(RegularExpression expression)
+        private static bool ExpressionIsSingleCharacterLiteral(IRegularExpression expression)
         {
             var literal = expression as Literal;
 

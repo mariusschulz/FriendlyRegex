@@ -4,9 +4,9 @@ namespace FriendlyRegularExpressions
 {
     public class Alternation : RegularExpression
     {
-        private readonly IEnumerable<RegularExpression> _alternatives;
+        private readonly IEnumerable<IRegularExpression> _alternatives;
 
-        public Alternation(IEnumerable<RegularExpression> alternatives)
+        public Alternation(IEnumerable<IRegularExpression> alternatives)
         {
             _alternatives = alternatives;
         }
@@ -16,7 +16,7 @@ namespace FriendlyRegularExpressions
             return "(?:" + _alternatives.StringJoin("|") + ")";
         }
 
-        public static RegularExpression Between(RegularExpression[] expressions)
+        public static IRegularExpression Between(IRegularExpression[] expressions)
         {
             if (expressions.Length == 0)
             {

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FriendlyRegularExpressions.Quantifiers;
 
 namespace FriendlyRegularExpressions
 {
-    class Concatenation : RegularExpression
+    public class Concatenation : RegularExpression, IQuantifiableRegularExpression
     {
-        private readonly IEnumerable<RegularExpression> _expressions;
+        private readonly IEnumerable<IRegularExpression> _expressions;
 
-        private Concatenation(RegularExpression left, RegularExpression right)
+        private Concatenation(IRegularExpression left, IRegularExpression right)
             : this(new[] { left, right })
         {
             // Nothing to do here
         }
 
-        private Concatenation(IEnumerable<RegularExpression> expressions)
+        private Concatenation(IEnumerable<IRegularExpression> expressions)
         {
             _expressions = expressions;
         }
@@ -23,19 +24,24 @@ namespace FriendlyRegularExpressions
             return _expressions.StringJoin();
         }
 
-        public RegularExpression[] CreateExpressionsArray()
+        public IRegularExpression[] CreateExpressionsArray()
         {
             return _expressions.ToArray();
         }
 
-        public static RegularExpression Concatenate(params RegularExpression[] expressions)
+        public static Concatenation Concatenate(params IRegularExpression[] expressions)
         {
-            return expressions.Aggregate(Concatenate);
+            return new Concatenation(expressions);
         }
 
-        public static RegularExpression Concatenate(RegularExpression left, RegularExpression right)
+        public static Concatenation Concatenate(IRegularExpression left, IRegularExpression right)
         {
             return new Concatenation(left, right);
+        }
+
+        IRegularExpression IQuantifiableRegularExpression.AtLeast(int repetitions)
+        {
+            return RangeQuantifier.AtLeast(this, repetitions);
         }
     }
 }

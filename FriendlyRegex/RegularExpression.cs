@@ -18,16 +18,6 @@ namespace FriendlyRegularExpressions
             get { return GetStringRepresentation() == String.Empty; }
         }
 
-        public static implicit operator RegularExpression(char literalCharacter)
-        {
-            return new Literal(literalCharacter.ToString(CultureInfo.InvariantCulture));
-        }
-
-        public static implicit operator RegularExpression(string literal)
-        {
-            return new Literal(literal);
-        }
-
         public override string ToString()
         {
             return GetStringRepresentation();
@@ -38,52 +28,73 @@ namespace FriendlyRegularExpressions
             return new Regex(GetStringRepresentation());
         }
 
-        public RegularExpression Then(RegularExpression expression)
+        public IQuantifiableRegularExpression Then(char character)
+        {
+            return ConcatenateThisWith(Literal(character));
+        }
+
+        public IQuantifiableRegularExpression Then(string literal)
+        {
+            return ConcatenateThisWith(Literal(literal));
+        }
+
+        public IQuantifiableRegularExpression Then(IRegularExpression expression)
         {
             return ConcatenateThisWith(expression);
         }
 
-        public RegularExpression ThenOptionally(RegularExpression expression)
+        public Concatenation ThenOptionally(char character)
         {
-            if (expression.IsEmpty)
-            {
-                return this;
-            }
+            return ThenOptionally(Literal(character));
+        }
 
+        public Concatenation ThenOptionally(string literal)
+        {
+            return ThenOptionally(Literal(literal));
+        }
+
+        public Concatenation ThenOptionally(IRegularExpression expression)
+        {
             var optionalExpression = QuestionMarkQuantifier.GreedilyQuantify(expression);
 
             return ConcatenateThisWith(optionalExpression);
         }
 
-        public RegularExpression ThenOptionallyAnything()
+        public Concatenation ThenOptionallyAnything()
         {
             var optionalAnything = StarQuantifier.LazilyQuantify(One.ArbitraryCharacter);
 
             return ConcatenateThisWith(optionalAnything);
         }
 
-        public RegularExpression ThenOneOf(params string[] literals)
+        public IQuantifiableRegularExpression ThenOneOf(params string[] literals)
         {
-            RegularExpression[] expressions = Array.ConvertAll(literals, literal => (RegularExpression)literal);
+            var expressions = literals
+                .Select(literal => new Literal(literal))
+                .Cast<IRegularExpression>()
+                .ToArray();
 
             return ThenOneOf(expressions);
         }
 
-        public RegularExpression ThenOneOf(params RegularExpression[] expressions)
+        public IQuantifiableRegularExpression ThenOneOf(params IRegularExpression[] expressions)
         {
             var alternation = Alternation.Between(expressions);
 
             return ConcatenateThisWith(alternation);
         }
 
-        public RegularExpression ThenOptionallyOneOf(params string[] literals)
+        public Concatenation ThenOptionallyOneOf(params string[] literals)
         {
-            RegularExpression[] expressions = Array.ConvertAll(literals, literal => (RegularExpression)literal);
+            var expressions = literals
+                .Select(literal => new Literal(literal))
+                .Cast<IRegularExpression>()
+                .ToArray();
 
             return ThenOptionallyOneOf(expressions);
         }
 
-        public RegularExpression ThenOptionallyOneOf(params RegularExpression[] expressions)
+        public Concatenation ThenOptionallyOneOf(params IRegularExpression[] expressions)
         {
             var alternation = Alternation.Between(expressions);
             var optionalAlternation = QuestionMarkQuantifier.GreedilyQuantify(alternation);
@@ -91,12 +102,12 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(optionalAlternation);
         }
 
-        public RegularExpression ThenPattern(string pattern)
+        public IQuantifiableRegularExpression ThenPattern(string pattern)
         {
             return ConcatenateThisWith(new RawPattern(pattern));
         }
 
-        public RegularExpression ThenAtomicPattern(string pattern)
+        public IQuantifiableRegularExpression ThenAtomicPattern(string pattern)
         {
             var rawPattern = new RawPattern(pattern);
             var atomicGroup = new AtomicGroup(rawPattern);
@@ -104,41 +115,41 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(atomicGroup);
         }
 
-        public RegularExpression ThenZeroOrMore(RegularExpression expression)
+        public Concatenation ThenZeroOrMore(IRegularExpression expression)
         {
             return ConcatenateThisWith(StarQuantifier.GreedilyQuantify(expression));
         }
 
-        public RegularExpression ThenOneOrMore(RegularExpression expression)
+        public Concatenation ThenOneOrMore(IRegularExpression expression)
         {
             return ConcatenateThisWith(PlusQuantifier.GreedilyQuantify(expression));
         }
 
-        public RegularExpression ThenWhitespace()
+        public Concatenation ThenWhitespace()
         {
             return ConcatenateThisWith(OneOrMore.WhiteSpaceCharacters);
         }
 
-        public RegularExpression ThenOptionalWhitespace()
+        public Concatenation ThenOptionalWhitespace()
         {
             return ConcatenateThisWith(ZeroOrMore.WhiteSpaceCharacters);
         }
 
-        public RegularExpression ThenAnything()
+        public Concatenation ThenAnything()
         {
             var anything = PlusQuantifier.LazilyQuantify(One.ArbitraryCharacter);
 
             return ConcatenateThisWith(anything);
         }
 
-        public RegularExpression ThenAnythingBut(params char[] blacklist)
+        public IQuantifiableRegularExpression ThenAnythingBut(params char[] blacklist)
         {
             Range[] blacklistedRanges = blacklist.Select(Range.FromSingle).ToArray();
 
             return ThenAnythingBut(blacklistedRanges);
         }
 
-        public RegularExpression ThenAnythingBut(params Range[] blacklist)
+        public IQuantifiableRegularExpression ThenAnythingBut(params Range[] blacklist)
         {
             var negatedCharacterClass = new NegatedCharacterClass(blacklist);
             var repetition = PlusQuantifier.LazilyQuantify(negatedCharacterClass);
@@ -146,7 +157,7 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(repetition);
         }
 
-        public RegularExpression ThenCharacterInRange(char from, char to)
+        public IQuantifiableRegularExpression ThenFromRange(char from, char to)
         {
             var range = new Range(from, to);
             var characterClass = new CharacterClass(range);
@@ -154,67 +165,67 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(characterClass);
         }
 
-        public RegularExpression StartOfLine()
+        public Concatenation StartOfLine()
         {
             return ConcatenateThisWith(Anchor.StartOfStringOrLine);
         }
 
-        public RegularExpression EndOfLine()
+        public Concatenation EndOfLine()
         {
             return ConcatenateThisWith(Anchor.EndOfStringOrLine);
         }
 
-        public RegularExpression After(RegularExpression expression)
+        public Concatenation After(IRegularExpression expression)
         {
             return ConcatenateThisWith(PositiveLookbehind.At(expression));
         }
 
-        public RegularExpression Before(RegularExpression expression)
+        public Concatenation Before(IRegularExpression expression)
         {
             return ConcatenateThisWith(PositiveLookahead.At(expression));
         }
 
-        public RegularExpression NotBefore(RegularExpression expression)
+        public Concatenation NotBefore(IRegularExpression expression)
         {
             return ConcatenateThisWith(NegativeLookahead.At(expression));
         }
 
-        public RegularExpression NotAfter(RegularExpression expression)
+        public Concatenation NotAfter(IRegularExpression expression)
         {
             return ConcatenateThisWith(NegativeLookbehind.At(expression));
         }
 
-        public RegularExpression BeginCapture()
+        public Concatenation BeginCapture()
         {
             return ConcatenateThisWith(new OpeningCapturingGroup());
         }
 
-        public RegularExpression BeginCapture(string groupName)
+        public Concatenation BeginCapture(string groupName)
         {
             return ConcatenateThisWith(new OpeningCapturingGroup(groupName));
         }
 
-        public RegularExpression EndCapture()
+        public Concatenation EndCapture()
         {
             return ConcatenateThisWith(new ClosingCapturingGroup());
         }
 
-        public ICapturedRegularExpression ThenCapture(RegularExpression expression)
+        public ICapturedRegularExpression ThenCapture(IRegularExpression expression)
         {
             return ConcatenateThisWith(new UnnamedCapturingGroup(expression));
         }
 
-        public RegularExpression ThenValueOfCapture(int groupIndex)
+        public IQuantifiableRegularExpression ThenValueOfCapture(int groupIndex)
         {
             return ConcatenateThisWith(new NumberedBackreference(groupIndex));
         }
 
-        public RegularExpression ThenValueOfCapture(string groupName)
+        public IQuantifiableRegularExpression ThenValueOfCapture(string groupName)
         {
             return ConcatenateThisWith(new NamedBackreference(groupName));
         }
 
-        RegularExpression ICapturedRegularExpression.As(string groupName)
+        IRegularExpression ICapturedRegularExpression.As(string groupName)
         {
             var capturingGroup = this as UnnamedCapturingGroup;
 
@@ -224,7 +235,7 @@ namespace FriendlyRegularExpressions
             }
 
             Concatenation concatenation = (Concatenation)this;
-            RegularExpression[] expressions = concatenation.CreateExpressionsArray();
+            IRegularExpression[] expressions = concatenation.CreateExpressionsArray();
 
             capturingGroup = (UnnamedCapturingGroup)expressions.Last();
             expressions[expressions.Length - 1] = capturingGroup.As(groupName);
@@ -232,12 +243,22 @@ namespace FriendlyRegularExpressions
             return Concatenation.Concatenate(expressions);
         }
 
-        private RegularExpression ConcatenateThisWith(RegularExpression expression)
+        private static IRegularExpression Literal(char character)
+        {
+            return Literal(character.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private static IRegularExpression Literal(string literal)
+        {
+            return new Literal(literal);
+        }
+
+        private Concatenation ConcatenateThisWith(IRegularExpression expression)
         {
             return Concatenation.Concatenate(this, expression);
         }
 
-        //public FriendlyRegex Or(RegularExpression expression)
+        //public FriendlyRegex Or(IRegularExpression expression)
         //{
         //    var lastToken = _RegularExpressions.Last();
         //    var newAlternatives = new List<RegularExpression>();

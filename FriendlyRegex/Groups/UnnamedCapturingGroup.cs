@@ -2,9 +2,9 @@
 {
     public class UnnamedCapturingGroup : GroupingConstruct
     {
-        private readonly RegularExpression _expression;
+        private readonly IRegularExpression _expression;
 
-        public UnnamedCapturingGroup(RegularExpression expression)
+        public UnnamedCapturingGroup(IRegularExpression expression)
         {
             _expression = expression;
         }
@@ -14,7 +14,7 @@
             return "(" + _expression + ")";
         }
 
-        public RegularExpression As(string groupName)
+        public IRegularExpression As(string groupName)
         {
             return new NamedCapturingGroup(_expression, groupName);
         }

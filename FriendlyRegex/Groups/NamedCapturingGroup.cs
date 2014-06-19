@@ -2,10 +2,10 @@
 {
     public class NamedCapturingGroup : GroupingConstruct
     {
-        private readonly RegularExpression _expression;
+        private readonly IRegularExpression _expression;
         private readonly string _groupName;
 
-        public NamedCapturingGroup(RegularExpression expression, string groupName)
+        public NamedCapturingGroup(IRegularExpression expression, string groupName)
         {
             _expression = expression;
             _groupName = groupName;

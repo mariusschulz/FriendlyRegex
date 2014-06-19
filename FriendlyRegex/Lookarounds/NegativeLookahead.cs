@@ -2,9 +2,9 @@
 {
     internal class NegativeLookahead : RegularExpression
     {
-        private readonly RegularExpression _expression;
+        private readonly IRegularExpression _expression;
 
-        private NegativeLookahead(RegularExpression expression)
+        private NegativeLookahead(IRegularExpression expression)
         {
             _expression = expression;
         }
@@ -14,7 +14,7 @@
             return "(?!" + _expression + ")";
         }
 
-        public static RegularExpression At(RegularExpression expression)
+        public static IRegularExpression At(IRegularExpression expression)
         {
             if (expression.IsEmpty)
             {

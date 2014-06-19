@@ -7,13 +7,13 @@
             get { return "?"; }
         }
 
-        private QuestionMarkQuantifier(RegularExpression expression)
+        private QuestionMarkQuantifier(IRegularExpression expression)
             : base(expression, Greediness.Greedy)
         {
             // Nothing to do here
         }
 
-        public static RegularExpression GreedilyQuantify(RegularExpression expression)
+        public static IRegularExpression GreedilyQuantify(IRegularExpression expression)
         {
             if (expression.IsEmpty)
             {

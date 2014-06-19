@@ -7,13 +7,13 @@
             get { return "+"; }
         }
 
-        private PlusQuantifier(RegularExpression expression, Greediness greediness = Greediness.Lazy)
+        private PlusQuantifier(IRegularExpression expression, Greediness greediness = Greediness.Lazy)
             : base(expression, greediness)
         {
             // Nothing to do here
         }
 
-        public static QuantifiedRegularExpression GreedilyQuantify(RegularExpression expression)
+        public static QuantifiedRegularExpression GreedilyQuantify(IRegularExpression expression)
         {
             if (expression.IsEmpty)
             {
@@ -23,7 +23,7 @@
             return new PlusQuantifier(expression, Greediness.Greedy);
         }
 
-        public static QuantifiedRegularExpression LazilyQuantify(RegularExpression expression)
+        public static QuantifiedRegularExpression LazilyQuantify(IRegularExpression expression)
         {
             if (expression.IsEmpty)
             {

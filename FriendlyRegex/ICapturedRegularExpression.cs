@@ -2,6 +2,6 @@
 {
     public interface ICapturedRegularExpression : IRegularExpression
     {
-        RegularExpression As(string groupName);
+        IRegularExpression As(string groupName);
     }
 }

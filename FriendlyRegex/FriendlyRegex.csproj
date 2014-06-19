@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterClass.cs" />
+    <Compile Include="IQuantifiableRegularExpression.cs" />
+    <Compile Include="Quantifiers\RangeQuantifier.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="EpsilonRepetition.cs" />
     <Compile Include="Groups\AtomicGroupingConstruct.cs" />
