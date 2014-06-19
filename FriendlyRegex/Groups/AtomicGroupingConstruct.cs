@@ -1,6 +1,6 @@
 ﻿namespace FriendlyRegularExpressions.Groups
 {
-    public class AtomicGroup : RegularExpression
+    public class AtomicGroup : GroupingConstruct
     {
         private readonly RegularExpression _expression;
 

@@ -13,7 +13,7 @@ namespace FriendlyRegularExpressions
 
         public override string GetStringRepresentation()
         {
-            return "(?:" + string.Join("|", _alternatives) + ")";
+            return "(?:" + _alternatives.StringJoin("|") + ")";
         }
 
         public override string Hierarchy
@@ -25,7 +25,7 @@ namespace FriendlyRegularExpressions
         {
             if (expressions.Length == 0)
             {
-                return Epsilon;
+                return Epsilon.Instance;
             }
 
             if (expressions.Length == 1)

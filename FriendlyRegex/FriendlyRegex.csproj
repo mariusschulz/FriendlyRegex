@@ -39,12 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Groups\AtomicGroup.cs" />
+    <Compile Include="CharacterRange.cs" />
+    <Compile Include="EpsilonRepetition.cs" />
+    <Compile Include="Groups\AtomicGroupingConstruct.cs" />
     <Compile Include="Epsilon.cs" />
     <Compile Include="Concatenation.cs" />
     <Compile Include="Greediness.cs" />
+    <Compile Include="Groups\GroupingConstruct.cs" />
     <Compile Include="Groups\NamedCapturingGroup.cs" />
     <Compile Include="Groups\UnnamedCapturingGroup.cs" />
+    <Compile Include="ICapturedRegularExpression.cs" />
+    <Compile Include="IRegularExpression.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="ZeroOrMore.cs" />
     <Compile Include="OneOrMore.cs" />
     <Compile Include="One.cs" />
@@ -55,7 +61,7 @@
     <Compile Include="Backreferences\NumberedBackreference.cs" />
     <Compile Include="Backreferences\NamedBackreference.cs" />
     <Compile Include="CharacterClasses\ShorthandCharacterClass.cs" />
-    <Compile Include="CharacterClass.cs" />
+    <Compile Include="NegatedCharacterClass.cs" />
     <Compile Include="Dot.cs" />
     <Compile Include="CharacterEscape.cs" />
     <Compile Include="Groups\ClosingCapturingGroup.cs" />

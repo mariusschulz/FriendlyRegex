@@ -3,7 +3,6 @@
     internal class ShorthandCharacterClass : RegularExpression
     {
         private readonly string _shorthandNotation;
-        public string ShorthandNotation { get { return _shorthandNotation; } }
 
         internal ShorthandCharacterClass(string shorthandNotation)
         {

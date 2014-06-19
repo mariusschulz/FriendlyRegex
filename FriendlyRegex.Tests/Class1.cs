@@ -11,12 +11,23 @@ namespace FriendlyRegularExpressions.Tests
         public void RepeatedWords()
         {
             var repeatedWords = RegularExpression.New()
+                .Then(" ")
                 .ThenCapture(One.Word).As("word")
                 .ThenWhitespace()
                 .ThenValueOfCapture("word");
 
             OutputPatternAndMatches(repeatedWords.ToRegex(),
                 "This is is a sentence with with with with repeated words.");
+        }
+
+        [Test]
+        public void EndOfLineComments()
+        {
+            var repeatedWords = RegularExpression.New()
+                .Then("//")
+                .ThenAnythingBut('\n', '^');
+
+            OutputPatternAndMatches(repeatedWords.ToRegex(), "This is some text // this is a comment ^ and this is not");
         }
 
         [Test]
@@ -32,7 +43,7 @@ namespace FriendlyRegularExpressions.Tests
             var domain = RegularExpression.New()
                 .ThenOneOf(subdomains)
                 .Then('.')
-                .ThenAtomicPattern(@"[^.]+")
+                .ThenAnythingBut('.')
                 .Then('.')
                 .ThenOneOf("de", "com")
                 .ThenOptionally('/');

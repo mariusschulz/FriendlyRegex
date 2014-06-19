@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Backreferences;
 using FriendlyRegularExpressions.Groups;
@@ -8,16 +10,9 @@ using FriendlyRegularExpressions.Quantifiers;
 
 namespace FriendlyRegularExpressions
 {
-    public abstract class RegularExpression
+    public abstract class RegularExpression : ICapturedRegularExpression
     {
         public abstract string GetStringRepresentation();
-
-        public static readonly RegularExpression Epsilon;
-
-        static RegularExpression()
-        {
-            Epsilon = FriendlyRegularExpressions.Epsilon.Instance;
-        }
 
         public bool IsEmpty
         {
@@ -66,6 +61,13 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(optionalExpression);
         }
 
+        public RegularExpression ThenOptionallyAnything()
+        {
+            var optionalAnything = StarQuantifier.LazilyQuantify(One.ArbitraryCharacter);
+
+            return ConcatenateThisWith(optionalAnything);
+        }
+
         public RegularExpression ThenOneOf(params string[] literals)
         {
             RegularExpression[] expressions = Array.ConvertAll(literals, literal => (RegularExpression)literal);
@@ -85,13 +87,6 @@ namespace FriendlyRegularExpressions
             RegularExpression[] expressions = Array.ConvertAll(literals, literal => (RegularExpression)literal);
 
             return ThenOptionallyOneOf(expressions);
-        }
-
-        public RegularExpression ThenOptionallyAnything()
-        {
-            var optionalAnything = StarQuantifier.LazilyQuantify(One.ArbitraryCharacter);
-
-            return ConcatenateThisWith(optionalAnything);
         }
 
         public RegularExpression ThenOptionallyOneOf(params RegularExpression[] expressions)
@@ -142,6 +137,21 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(anything);
         }
 
+        public RegularExpression ThenAnythingBut(params char[] blacklist)
+        {
+            CharacterRange[] characterRanges = Array.ConvertAll(blacklist, character => (CharacterRange)character);
+
+            return ThenAnythingBut(characterRanges);
+        }
+
+        public RegularExpression ThenAnythingBut(params CharacterRange[] blacklist)
+        {
+            var negatedCharacterClass = new NegatedCharacterClass(blacklist);
+            var repetition = PlusQuantifier.LazilyQuantify(negatedCharacterClass);
+
+            return ConcatenateThisWith(repetition);
+        }
+
         public RegularExpression StartOfLine()
         {
             return ConcatenateThisWith(Anchor.StartOfStringOrLine);
@@ -187,9 +197,9 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(new ClosingCapturingGroup());
         }
 
-        public UnnamedCapturingGroup ThenCapture(RegularExpression expression)
+        public ICapturedRegularExpression ThenCapture(RegularExpression expression)
         {
-            return new UnnamedCapturingGroup(expression);
+            return ConcatenateThisWith(new UnnamedCapturingGroup(expression));
         }
 
         public RegularExpression ThenValueOfCapture(int groupIndex)
@@ -200,6 +210,24 @@ namespace FriendlyRegularExpressions
         public RegularExpression ThenValueOfCapture(string groupName)
         {
             return ConcatenateThisWith(new NamedBackreference(groupName));
+        }
+
+        RegularExpression ICapturedRegularExpression.As(string groupName)
+        {
+            var capturingGroup = this as UnnamedCapturingGroup;
+
+            if (capturingGroup != null)
+            {
+                return capturingGroup.As(groupName);
+            }
+
+            Concatenation concatenation = (Concatenation)this;
+            RegularExpression[] expressions = concatenation.CreateExpressionsArray();
+
+            capturingGroup = (UnnamedCapturingGroup)expressions.Last();
+            expressions[expressions.Length - 1] = capturingGroup.As(groupName);
+
+            return Concatenation.Concatenate(expressions);
         }
 
         private RegularExpression ConcatenateThisWith(RegularExpression expression)
@@ -236,7 +264,7 @@ namespace FriendlyRegularExpressions
 
         public static RegularExpression New()
         {
-            return Epsilon;
+            return Epsilon.Instance;
         }
     }
 }

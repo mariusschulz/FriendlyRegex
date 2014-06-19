@@ -13,18 +13,24 @@
             // Nothing to do here
         }
 
-        public static RegularExpression GreedilyQuantify(RegularExpression expression)
+        public static QuantifiedRegularExpression GreedilyQuantify(RegularExpression expression)
         {
-            return expression.IsEmpty
-                ? Epsilon
-                : new PlusQuantifier(expression, Greediness.Greedy);
+            if (expression.IsEmpty)
+            {
+                return EpsilonRepetition.Instance;
+            }
+
+            return new PlusQuantifier(expression, Greediness.Greedy);
         }
 
-        public static RegularExpression LazilyQuantify(RegularExpression expression)
+        public static QuantifiedRegularExpression LazilyQuantify(RegularExpression expression)
         {
-            return expression.IsEmpty
-                ? Epsilon
-                : new PlusQuantifier(expression);
+            if (expression.IsEmpty)
+            {
+                return EpsilonRepetition.Instance;
+            }
+
+            return new PlusQuantifier(expression);
         }
     }
 }

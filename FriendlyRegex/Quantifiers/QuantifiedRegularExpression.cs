@@ -1,4 +1,5 @@
 ﻿using FriendlyRegularExpressions.CharacterClasses;
+using FriendlyRegularExpressions.Groups;
 
 namespace FriendlyRegularExpressions.Quantifiers
 {
@@ -17,7 +18,7 @@ namespace FriendlyRegularExpressions.Quantifiers
 
         protected string WrapExpressionInParenthesesIfNecessary()
         {
-            return GroupingParenthesesCanBeOmitted()
+            return GroupingParenthesesCanBeOmitted(_expression)
                 ? _expression.ToString()
                 : "(?:" + _expression + ")";
         }
@@ -35,21 +36,26 @@ namespace FriendlyRegularExpressions.Quantifiers
             return quantifiedExpression;
         }
 
-        private bool GroupingParenthesesCanBeOmitted()
+        private static bool GroupingParenthesesCanBeOmitted(RegularExpression expression)
         {
-            if (_expression is Dot || _expression is ShorthandCharacterClass)
-            {
-                return true;
-            }
+            return ExpressionDoesNotRequireParentheses(expression)
+                || ExpressionIsSingleCharacterLiteral(expression);
+        }
 
-            var literal = _expression as Literal;
+        private static bool ExpressionDoesNotRequireParentheses(RegularExpression expression)
+        {
+            return expression is Dot
+                || expression is GroupingConstruct
+                || expression is NegatedCharacterClass
+                || expression is ShorthandCharacterClass;
+        }
 
-            if (literal != null && literal.LiteralPattern.Length == 1)
-            {
-                return true;
-            }
+        private static bool ExpressionIsSingleCharacterLiteral(RegularExpression expression)
+        {
+            var literal = expression as Literal;
 
-            return false;
+            return literal != null
+                && literal.LiteralPattern.Length == 1;
         }
     }
 }

@@ -8,8 +8,9 @@ namespace FriendlyRegularExpressions
         private readonly IEnumerable<RegularExpression> _expressions;
 
         private Concatenation(RegularExpression left, RegularExpression right)
+            : this(new[] { left, right })
         {
-            _expressions = new[] { left, right };
+            // Nothing to do here
         }
 
         private Concatenation(IEnumerable<RegularExpression> expressions)
@@ -19,7 +20,7 @@ namespace FriendlyRegularExpressions
 
         public override string GetStringRepresentation()
         {
-            return string.Join(string.Empty, _expressions);
+            return _expressions.StringJoin();
         }
 
         public override string Hierarchy
@@ -30,6 +31,11 @@ namespace FriendlyRegularExpressions
                     + string.Join(string.Empty, _expressions.Select(x => x.Hierarchy))
                     + "]";
             }
+        }
+
+        public RegularExpression[] CreateExpressionsArray()
+        {
+            return _expressions.ToArray();
         }
 
         public static RegularExpression Concatenate(params RegularExpression[] expressions)
@@ -44,7 +50,7 @@ namespace FriendlyRegularExpressions
 
             if (leftIsEmpty && rightIsEmpty)
             {
-                return Epsilon;
+                return Epsilon.Instance;
             }
 
             if (leftIsEmpty)

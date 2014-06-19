@@ -18,7 +18,7 @@
         {
             if (expression.IsEmpty)
             {
-                return Epsilon;
+                return Epsilon.Instance;
             }
 
             return new PositiveLookbehind(expression);

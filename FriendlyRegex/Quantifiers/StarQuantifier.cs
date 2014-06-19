@@ -15,16 +15,22 @@
 
         public static RegularExpression GreedilyQuantify(RegularExpression expression)
         {
-            return expression.IsEmpty
-                ? Epsilon
-                : new StarQuantifier(expression, Greediness.Greedy);
+            if (expression.IsEmpty)
+            {
+                return Epsilon.Instance;
+            }
+
+            return new StarQuantifier(expression, Greediness.Greedy);
         }
 
         public static RegularExpression LazilyQuantify(RegularExpression expression)
         {
-            return expression.IsEmpty
-                ? Epsilon
-                : new StarQuantifier(expression);
+            if (expression.IsEmpty)
+            {
+                return Epsilon.Instance;
+            }
+
+            return new StarQuantifier(expression);
         }
     }
 }

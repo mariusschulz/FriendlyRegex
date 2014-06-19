@@ -1,6 +1,6 @@
 ﻿namespace FriendlyRegularExpressions
 {
-    class Epsilon : RegularExpression
+    internal class Epsilon : RegularExpression
     {
         public static Epsilon Instance;
 

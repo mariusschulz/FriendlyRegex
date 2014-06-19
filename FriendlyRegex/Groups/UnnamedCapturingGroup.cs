@@ -1,6 +1,6 @@
 ﻿namespace FriendlyRegularExpressions.Groups
 {
-    public class UnnamedCapturingGroup : RegularExpression
+    public class UnnamedCapturingGroup : GroupingConstruct
     {
         private readonly RegularExpression _expression;
 
