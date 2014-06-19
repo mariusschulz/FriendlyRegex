@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Groups\AtomicGroup.cs" />
     <Compile Include="Epsilon.cs" />
     <Compile Include="Concatenation.cs" />
     <Compile Include="Greediness.cs" />

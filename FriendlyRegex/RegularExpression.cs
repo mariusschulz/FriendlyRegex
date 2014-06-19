@@ -75,7 +75,7 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression ThenOneOf(params RegularExpression[] expressions)
         {
-            RegularExpression alternation = Alternation.Between(expressions);
+            var alternation = Alternation.Between(expressions);
 
             return ConcatenateThisWith(alternation);
         }
@@ -96,8 +96,8 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression ThenOptionallyOneOf(params RegularExpression[] expressions)
         {
-            RegularExpression alternation = Alternation.Between(expressions);
-            RegularExpression optionalAlternation = QuestionMarkQuantifier.GreedilyQuantify(alternation);
+            var alternation = Alternation.Between(expressions);
+            var optionalAlternation = QuestionMarkQuantifier.GreedilyQuantify(alternation);
 
             return ConcatenateThisWith(optionalAlternation);
         }
@@ -105,6 +105,14 @@ namespace FriendlyRegularExpressions
         public RegularExpression ThenPattern(string pattern)
         {
             return ConcatenateThisWith(new RawPattern(pattern));
+        }
+
+        public RegularExpression ThenAtomicPattern(string pattern)
+        {
+            var rawPattern = new RawPattern(pattern);
+            var atomicGroup = new AtomicGroup(rawPattern);
+
+            return ConcatenateThisWith(atomicGroup);
         }
 
         public RegularExpression ThenZeroOrMore(RegularExpression expression)

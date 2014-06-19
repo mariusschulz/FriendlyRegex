@@ -20,7 +20,7 @@ namespace FriendlyRegularExpressions.Tests
         }
 
         [Test]
-        public static void MarkdownLinks()
+        public static void Urls()
         {
             string[] subdomains = { "www", "blog", "speaking" };
 
@@ -32,9 +32,8 @@ namespace FriendlyRegularExpressions.Tests
             var domain = RegularExpression.New()
                 .ThenOneOf(subdomains)
                 .Then('.')
-                .ThenPattern(@"[^.]+")
+                .ThenAtomicPattern(@"[^.]+")
                 .Then('.')
-                .ThenOptionally(OneOrMore.NonDigits)
                 .ThenOneOf("de", "com")
                 .ThenOptionally('/');
 
@@ -46,12 +45,7 @@ namespace FriendlyRegularExpressions.Tests
                 .ThenOptionalWhitespace()
                 .Then(']');
 
-            var markdownLink = httpUrl
-                .Then('(')
-                .ThenCapture(OneOrMore.ArbitraryCharacters).As("value")
-                .Then(')');
-
-            OutputPatternAndMatches(markdownLink.ToRegex(),
+            OutputPatternAndMatches(httpUrl.ToRegex(),
                 "Find my my blog under [http://blog.mariusschulz.com](this this page)");
         }
 
