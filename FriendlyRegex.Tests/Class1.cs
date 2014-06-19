@@ -45,7 +45,9 @@ namespace FriendlyRegularExpressions.Tests
                 .Then('.')
                 .ThenAnythingBut('.')
                 .Then('.')
-                .ThenOneOf("de", "com")
+                .ThenCharacterInRange('a', 'z')
+                .ThenCharacterInRange('a', 'z')
+                .ThenCharacterInRange('a', 'z')
                 .ThenOptionally('/');
 
             var httpUrl = RegularExpression.New()

@@ -7,7 +7,7 @@ namespace FriendlyRegularExpressions
         private readonly string _from;
         private readonly string _to;
 
-        private Range(char from, char to)
+        public Range(char from, char to)
         {
             if (from < to)
             {
@@ -43,11 +43,6 @@ namespace FriendlyRegularExpressions
         public static implicit operator Range(char character)
         {
             return new Range(character);
-        }
-
-        public static Range Between(char from, char to)
-        {
-            return new Range(from, to);
         }
 
         public static Range FromSingle(char character)

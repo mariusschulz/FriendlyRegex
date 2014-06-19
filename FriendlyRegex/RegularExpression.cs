@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using FriendlyRegularExpressions.Backreferences;
 using FriendlyRegularExpressions.Groups;
@@ -150,6 +149,14 @@ namespace FriendlyRegularExpressions
             var repetition = PlusQuantifier.LazilyQuantify(negatedCharacterClass);
 
             return ConcatenateThisWith(repetition);
+        }
+
+        public RegularExpression ThenCharacterInRange(char from, char to)
+        {
+            var range = new Range(from, to);
+            var characterClass = new CharacterClass(range);
+
+            return ConcatenateThisWith(characterClass);
         }
 
         public RegularExpression StartOfLine()
