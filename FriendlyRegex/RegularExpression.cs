@@ -18,11 +18,6 @@ namespace FriendlyRegularExpressions
             get { return GetStringRepresentation() == String.Empty; }
         }
 
-        public virtual string Hierarchy
-        {
-            get { return ""; }
-        }
-
         public static implicit operator RegularExpression(char literalCharacter)
         {
             return new Literal(literalCharacter.ToString(CultureInfo.InvariantCulture));

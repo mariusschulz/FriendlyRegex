@@ -23,16 +23,6 @@ namespace FriendlyRegularExpressions
             return _expressions.StringJoin();
         }
 
-        public override string Hierarchy
-        {
-            get
-            {
-                return "Concatenation["
-                    + string.Join(string.Empty, _expressions.Select(x => x.Hierarchy))
-                    + "]";
-            }
-        }
-
         public RegularExpression[] CreateExpressionsArray()
         {
             return _expressions.ToArray();

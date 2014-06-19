@@ -16,11 +16,6 @@ namespace FriendlyRegularExpressions
             return "(?:" + _alternatives.StringJoin("|") + ")";
         }
 
-        public override string Hierarchy
-        {
-            get { return "Alternation:" + GetStringRepresentation(); }
-        }
-
         public static RegularExpression Between(RegularExpression[] expressions)
         {
             if (expressions.Length == 0)
