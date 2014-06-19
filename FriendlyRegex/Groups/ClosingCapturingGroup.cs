@@ -1,6 +1,4 @@
-﻿
-
-namespace FriendlyRegularExpressions.Groups
+﻿namespace FriendlyRegularExpressions.Groups
 {
     internal class ClosingCapturingGroup : RegularExpression
     {

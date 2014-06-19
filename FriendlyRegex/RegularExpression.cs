@@ -179,16 +179,9 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(new ClosingCapturingGroup());
         }
 
-        public RegularExpression ThenCapture(RegularExpression expression)
+        public UnnamedCapturingGroup ThenCapture(RegularExpression expression)
         {
-            return BeginCapture().ConcatenateThisWith(expression).EndCapture();
-        }
-
-        public RegularExpression ThenCapture(string groupName, RegularExpression expression)
-        {
-            return ConcatenateThisWith(new OpeningCapturingGroup(groupName))
-                .ConcatenateThisWith(expression)
-                .EndCapture();
+            return new UnnamedCapturingGroup(expression);
         }
 
         public RegularExpression ThenValueOfCapture(int groupIndex)

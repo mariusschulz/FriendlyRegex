@@ -42,6 +42,8 @@
     <Compile Include="Epsilon.cs" />
     <Compile Include="Concatenation.cs" />
     <Compile Include="Greediness.cs" />
+    <Compile Include="Groups\NamedCapturingGroup.cs" />
+    <Compile Include="Groups\UnnamedCapturingGroup.cs" />
     <Compile Include="ZeroOrMore.cs" />
     <Compile Include="OneOrMore.cs" />
     <Compile Include="One.cs" />
