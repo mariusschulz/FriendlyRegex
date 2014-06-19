@@ -162,12 +162,12 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(PositiveLookahead.At(expression));
         }
 
-        public RegularExpression NotAheadOf(RegularExpression expression)
+        public RegularExpression NotBefore(RegularExpression expression)
         {
             return ConcatenateThisWith(NegativeLookahead.At(expression));
         }
 
-        public RegularExpression NotBehind(RegularExpression expression)
+        public RegularExpression NotAfter(RegularExpression expression)
         {
             return ConcatenateThisWith(NegativeLookbehind.At(expression));
         }
