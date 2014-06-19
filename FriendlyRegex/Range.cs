@@ -2,12 +2,12 @@
 
 namespace FriendlyRegularExpressions
 {
-    public class CharacterRange
+    public class Range
     {
         private readonly string _from;
         private readonly string _to;
 
-        public CharacterRange(char from, char to)
+        private Range(char from, char to)
         {
             if (from < to)
             {
@@ -25,7 +25,7 @@ namespace FriendlyRegularExpressions
             }
         }
 
-        private CharacterRange(char character)
+        private Range(char character)
         {
             _from = Escape(character);
         }
@@ -40,9 +40,19 @@ namespace FriendlyRegularExpressions
             return _from + (string.IsNullOrEmpty(_to) ? string.Empty : "-" + _to);
         }
 
-        public static implicit operator CharacterRange(char character)
+        public static implicit operator Range(char character)
         {
-            return new CharacterRange(character);
+            return new Range(character);
+        }
+
+        public static Range Between(char from, char to)
+        {
+            return new Range(from, to);
+        }
+
+        public static Range FromSingle(char character)
+        {
+            return new Range(character);
         }
     }
 }

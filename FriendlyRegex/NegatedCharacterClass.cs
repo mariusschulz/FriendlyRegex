@@ -2,9 +2,9 @@
 {
     internal class NegatedCharacterClass : RegularExpression
     {
-        private readonly CharacterRange[] _blacklist;
+        private readonly Range[] _blacklist;
 
-        public NegatedCharacterClass(params CharacterRange[] blacklist)
+        public NegatedCharacterClass(params Range[] blacklist)
         {
             _blacklist = blacklist;
         }

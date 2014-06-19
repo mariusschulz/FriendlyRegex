@@ -24,7 +24,7 @@ namespace FriendlyRegularExpressions
         RegularExpression ThenOptionalWhitespace();
         RegularExpression ThenAnything();
         RegularExpression ThenAnythingBut(params char[] blacklist);
-        RegularExpression ThenAnythingBut(params CharacterRange[] blacklist);
+        RegularExpression ThenAnythingBut(params Range[] blacklist);
         RegularExpression StartOfLine();
         RegularExpression EndOfLine();
         RegularExpression After(RegularExpression expression);

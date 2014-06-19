@@ -139,12 +139,12 @@ namespace FriendlyRegularExpressions
 
         public RegularExpression ThenAnythingBut(params char[] blacklist)
         {
-            CharacterRange[] characterRanges = Array.ConvertAll(blacklist, character => (CharacterRange)character);
+            Range[] blacklistedRanges = blacklist.Select(Range.FromSingle).ToArray();
 
-            return ThenAnythingBut(characterRanges);
+            return ThenAnythingBut(blacklistedRanges);
         }
 
-        public RegularExpression ThenAnythingBut(params CharacterRange[] blacklist)
+        public RegularExpression ThenAnythingBut(params Range[] blacklist)
         {
             var negatedCharacterClass = new NegatedCharacterClass(blacklist);
             var repetition = PlusQuantifier.LazilyQuantify(negatedCharacterClass);

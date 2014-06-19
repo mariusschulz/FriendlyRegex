@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CharacterRange.cs" />
+    <Compile Include="Range.cs" />
     <Compile Include="EpsilonRepetition.cs" />
     <Compile Include="Groups\AtomicGroupingConstruct.cs" />
     <Compile Include="Epsilon.cs" />
