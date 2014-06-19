@@ -76,8 +76,6 @@
     <Compile Include="Quantifiers\QuestionMarkQuantifier.cs" />
     <Compile Include="Quantifiers\StarQuantifier.cs" />
     <Compile Include="RawPattern.cs" />
-    <Compile Include="Range.cs" />
-    <Compile Include="RangeBoundary.cs" />
     <Compile Include="Anchor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
