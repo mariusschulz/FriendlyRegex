@@ -9,6 +9,11 @@
         {
             get
             {
+                if (_minRepetitions.HasValue && _maxRepetitions.HasValue && _minRepetitions == _maxRepetitions)
+                {
+                    return "{" + _minRepetitions + "}";
+                }
+
                 return "{"
                     + (_minRepetitions.HasValue ? _minRepetitions.ToString() : string.Empty)
                     + ","
@@ -27,6 +32,16 @@
         public static RangeQuantifier AtLeast(RegularExpression expression, int repetitions)
         {
             return new RangeQuantifier(expression, repetitions, null);
+        }
+
+        public static RangeQuantifier AtMost(RegularExpression expression, int repetitions)
+        {
+            return new RangeQuantifier(expression, null, repetitions);
+        }
+
+        public static RangeQuantifier Exactly(RegularExpression expression, int repetitions)
+        {
+            return new RangeQuantifier(expression, repetitions, repetitions);
         }
     }
 }

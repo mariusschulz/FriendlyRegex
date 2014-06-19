@@ -43,5 +43,15 @@ namespace FriendlyRegularExpressions
         {
             return RangeQuantifier.AtLeast(this, repetitions);
         }
+
+        public IRegularExpression AtMost(int repetitions)
+        {
+            return RangeQuantifier.AtMost(this, repetitions);
+        }
+
+        public IRegularExpression Exactly(int repetitions)
+        {
+            return RangeQuantifier.Exactly(this, repetitions);
+        }
     }
 }
