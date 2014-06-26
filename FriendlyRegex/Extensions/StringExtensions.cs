@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FriendlyRegularExpressions
+namespace FriendlyRegularExpressions.Extensions
 {
     internal static class StringExtensions
     {

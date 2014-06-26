@@ -1,4 +1,6 @@
-﻿namespace FriendlyRegularExpressions.Quantifiers
+﻿using FriendlyRegularExpressions.Extensions;
+
+namespace FriendlyRegularExpressions.Quantifiers
 {
     internal class RangeQuantifier : QuantifiedRegularExpression
     {
@@ -15,9 +17,9 @@
                 }
 
                 return "{"
-                    + (_minRepetitions.HasValue ? _minRepetitions.ToString() : string.Empty)
+                    + _minRepetitions.ToStringOrEmpty()
                     + ","
-                    + (_maxRepetitions.HasValue ? _maxRepetitions.ToString() : string.Empty)
+                    + _minRepetitions.ToStringOrEmpty()
                     + "}";
             }
         }

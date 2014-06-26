@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterClass.cs" />
+    <Compile Include="Extensions\NullableExtensions.cs" />
     <Compile Include="IQuantifiableRegularExpression.cs" />
     <Compile Include="Quantifiers\RangeQuantifier.cs" />
     <Compile Include="Range.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="Groups\UnnamedCapturingGroup.cs" />
     <Compile Include="ICapturedRegularExpression.cs" />
     <Compile Include="IRegularExpression.cs" />
-    <Compile Include="StringExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ZeroOrMore.cs" />
     <Compile Include="OneOrMore.cs" />
     <Compile Include="One.cs" />

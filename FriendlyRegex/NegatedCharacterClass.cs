@@ -1,4 +1,6 @@
-﻿namespace FriendlyRegularExpressions
+﻿using FriendlyRegularExpressions.Extensions;
+
+namespace FriendlyRegularExpressions
 {
     internal class NegatedCharacterClass : RegularExpression
     {
