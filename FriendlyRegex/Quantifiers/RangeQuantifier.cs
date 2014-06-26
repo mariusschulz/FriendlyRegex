@@ -31,24 +31,24 @@ namespace FriendlyRegularExpressions.Quantifiers
                 && _minRepetitions == _maxRepetitions;
         }
 
-        public RangeQuantifier(RegularExpression expression, int? minRepetions, int? maxRepetitions)
+        public RangeQuantifier(IRegularExpression expression, int? minRepetions, int? maxRepetitions)
             : base(expression, Greediness.Greedy)
         {
             _minRepetitions = minRepetions;
             _maxRepetitions = maxRepetitions;
         }
 
-        public static RangeQuantifier AtLeast(RegularExpression expression, int repetitions)
+        public static RangeQuantifier AtLeast(IRegularExpression expression, int repetitions)
         {
             return new RangeQuantifier(expression, repetitions, null);
         }
 
-        public static RangeQuantifier AtMost(RegularExpression expression, int repetitions)
+        public static RangeQuantifier AtMost(IRegularExpression expression, int repetitions)
         {
             return new RangeQuantifier(expression, null, repetitions);
         }
 
-        public static RangeQuantifier Exactly(RegularExpression expression, int repetitions)
+        public static RangeQuantifier Exactly(IRegularExpression expression, int repetitions)
         {
             return new RangeQuantifier(expression, repetitions, repetitions);
         }
