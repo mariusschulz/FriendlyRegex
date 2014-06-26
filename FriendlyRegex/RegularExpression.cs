@@ -43,58 +43,58 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(expression);
         }
 
-        public Concatenation ThenOptionally(char character)
+        public Concatenation Maybe(char character)
         {
-            return ThenOptionally(Literal(character));
+            return Maybe(Literal(character));
         }
 
-        public Concatenation ThenOptionally(string literal)
+        public Concatenation Maybe(string literal)
         {
-            return ThenOptionally(Literal(literal));
+            return Maybe(Literal(literal));
         }
 
-        public Concatenation ThenOptionally(IRegularExpression expression)
+        public Concatenation Maybe(IRegularExpression expression)
         {
             var optionalExpression = QuestionMarkQuantifier.GreedilyQuantify(expression);
 
             return ConcatenateThisWith(optionalExpression);
         }
 
-        public Concatenation ThenOptionallyAnything()
+        public Concatenation MaybeAnything()
         {
             var optionalAnything = StarQuantifier.LazilyQuantify(One.ArbitraryCharacter);
 
             return ConcatenateThisWith(optionalAnything);
         }
 
-        public IQuantifiableRegularExpression ThenOneOf(params string[] literals)
+        public IQuantifiableRegularExpression OneOf(params string[] literals)
         {
             var expressions = literals
                 .Select(literal => new Literal(literal))
                 .Cast<IRegularExpression>()
                 .ToArray();
 
-            return ThenOneOf(expressions);
+            return OneOf(expressions);
         }
 
-        public IQuantifiableRegularExpression ThenOneOf(params IRegularExpression[] expressions)
+        public IQuantifiableRegularExpression OneOf(params IRegularExpression[] expressions)
         {
             var alternation = Alternation.Between(expressions);
 
             return ConcatenateThisWith(alternation);
         }
 
-        public Concatenation ThenOptionallyOneOf(params string[] literals)
+        public Concatenation MaybeOneOf(params string[] literals)
         {
             var expressions = literals
                 .Select(literal => new Literal(literal))
                 .Cast<IRegularExpression>()
                 .ToArray();
 
-            return ThenOptionallyOneOf(expressions);
+            return MaybeOneOf(expressions);
         }
 
-        public Concatenation ThenOptionallyOneOf(params IRegularExpression[] expressions)
+        public Concatenation MaybeOneOf(params IRegularExpression[] expressions)
         {
             var alternation = Alternation.Between(expressions);
             var optionalAlternation = QuestionMarkQuantifier.GreedilyQuantify(alternation);
@@ -102,12 +102,12 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(optionalAlternation);
         }
 
-        public IQuantifiableRegularExpression ThenPattern(string pattern)
+        public IQuantifiableRegularExpression Pattern(string pattern)
         {
             return ConcatenateThisWith(new RawPattern(pattern));
         }
 
-        public IQuantifiableRegularExpression ThenAtomicPattern(string pattern)
+        public IQuantifiableRegularExpression AtomicPattern(string pattern)
         {
             var rawPattern = new RawPattern(pattern);
             var atomicGroup = new AtomicGroup(rawPattern);
@@ -115,41 +115,41 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(atomicGroup);
         }
 
-        public Concatenation ThenZeroOrMore(IRegularExpression expression)
+        public Concatenation ZeroOrMore(IRegularExpression expression)
         {
             return ConcatenateThisWith(StarQuantifier.GreedilyQuantify(expression));
         }
 
-        public Concatenation ThenOneOrMore(IRegularExpression expression)
+        public Concatenation OneOrMore(IRegularExpression expression)
         {
             return ConcatenateThisWith(PlusQuantifier.GreedilyQuantify(expression));
         }
 
-        public Concatenation ThenWhitespace()
+        public Concatenation Whitespace()
         {
-            return ConcatenateThisWith(OneOrMore.WhiteSpaceCharacters);
+            return ConcatenateThisWith(FriendlyRegularExpressions.OneOrMore.WhiteSpaceCharacters);
         }
 
-        public Concatenation ThenOptionalWhitespace()
+        public Concatenation MaybeWhitespace()
         {
-            return ConcatenateThisWith(ZeroOrMore.WhiteSpaceCharacters);
+            return ConcatenateThisWith(FriendlyRegularExpressions.ZeroOrMore.WhiteSpaceCharacters);
         }
 
-        public Concatenation ThenAnything()
+        public Concatenation Anything()
         {
             var anything = PlusQuantifier.LazilyQuantify(One.ArbitraryCharacter);
 
             return ConcatenateThisWith(anything);
         }
 
-        public IQuantifiableRegularExpression ThenAnythingBut(params char[] blacklist)
+        public IQuantifiableRegularExpression AnythingBut(params char[] blacklist)
         {
             Range[] blacklistedRanges = blacklist.Select(Range.FromSingle).ToArray();
 
-            return ThenAnythingBut(blacklistedRanges);
+            return AnythingBut(blacklistedRanges);
         }
 
-        public IQuantifiableRegularExpression ThenAnythingBut(params Range[] blacklist)
+        public IQuantifiableRegularExpression AnythingBut(params Range[] blacklist)
         {
             var negatedCharacterClass = new NegatedCharacterClass(blacklist);
             var repetition = PlusQuantifier.LazilyQuantify(negatedCharacterClass);
@@ -157,7 +157,7 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(repetition);
         }
 
-        public IQuantifiableRegularExpression ThenFromRange(char from, char to)
+        public IQuantifiableRegularExpression FromRange(char from, char to)
         {
             var range = new Range(from, to);
             var characterClass = new CharacterClass(range);
@@ -210,17 +210,17 @@ namespace FriendlyRegularExpressions
             return ConcatenateThisWith(new ClosingCapturingGroup());
         }
 
-        public ICapturedRegularExpression ThenCapture(IRegularExpression expression)
+        public ICapturedRegularExpression Capture(IRegularExpression expression)
         {
             return ConcatenateThisWith(new UnnamedCapturingGroup(expression));
         }
 
-        public IQuantifiableRegularExpression ThenValueOfCapture(int groupIndex)
+        public IQuantifiableRegularExpression ValueOfCapture(int groupIndex)
         {
             return ConcatenateThisWith(new NumberedBackreference(groupIndex));
         }
 
-        public IQuantifiableRegularExpression ThenValueOfCapture(string groupName)
+        public IQuantifiableRegularExpression ValueOfCapture(string groupName)
         {
             return ConcatenateThisWith(new NamedBackreference(groupName));
         }
