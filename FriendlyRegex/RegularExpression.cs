@@ -15,7 +15,7 @@ namespace FriendlyRegularExpressions
 
         public bool IsEmpty
         {
-            get { return GetStringRepresentation() == String.Empty; }
+            get { return GetStringRepresentation() == string.Empty; }
         }
 
         public override string ToString()
@@ -55,16 +55,12 @@ namespace FriendlyRegularExpressions
 
         public Concatenation Maybe(IRegularExpression expression)
         {
-            var optionalExpression = QuestionMarkQuantifier.GreedilyQuantify(expression);
-
-            return ConcatenateThisWith(optionalExpression);
+            return ConcatenateThisWith(QuestionMarkQuantifier.GreedilyQuantify(expression));
         }
 
         public Concatenation MaybeAnything()
         {
-            var optionalAnything = StarQuantifier.LazilyQuantify(One.ArbitraryCharacter);
-
-            return ConcatenateThisWith(optionalAnything);
+            return ConcatenateThisWith(StarQuantifier.LazilyQuantify(One.ArbitraryCharacter));
         }
 
         public IQuantifiableRegularExpression OneOf(params string[] literals)
@@ -78,9 +74,7 @@ namespace FriendlyRegularExpressions
 
         public IQuantifiableRegularExpression OneOf(params IRegularExpression[] expressions)
         {
-            var alternation = Alternation.Between(expressions);
-
-            return ConcatenateThisWith(alternation);
+            return ConcatenateThisWith(Alternation.Between(expressions));
         }
 
         public Concatenation MaybeOneOf(params string[] literals)
@@ -135,16 +129,12 @@ namespace FriendlyRegularExpressions
 
         public Concatenation Anything()
         {
-            var anything = PlusQuantifier.LazilyQuantify(One.ArbitraryCharacter);
-
-            return ConcatenateThisWith(anything);
+            return ConcatenateThisWith(PlusQuantifier.LazilyQuantify(One.ArbitraryCharacter));
         }
 
         public IQuantifiableRegularExpression AnythingBut(params char[] blacklist)
         {
-            Range[] blacklistedRanges = blacklist.Select(Range.FromSingle).ToArray();
-
-            return AnythingBut(blacklistedRanges);
+            return AnythingBut(blacklist.Select(Range.FromSingle).ToArray());
         }
 
         public IQuantifiableRegularExpression AnythingBut(params Range[] blacklist)
