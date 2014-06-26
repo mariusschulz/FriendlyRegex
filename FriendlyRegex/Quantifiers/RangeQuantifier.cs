@@ -11,7 +11,7 @@ namespace FriendlyRegularExpressions.Quantifiers
         {
             get
             {
-                if (_minRepetitions.HasValue && _maxRepetitions.HasValue && _minRepetitions == _maxRepetitions)
+                if (MinEqualsMax())
                 {
                     return "{" + _minRepetitions + "}";
                 }
@@ -22,6 +22,13 @@ namespace FriendlyRegularExpressions.Quantifiers
                     + _minRepetitions.ToStringOrEmpty()
                     + "}";
             }
+        }
+
+        private bool MinEqualsMax()
+        {
+            return _minRepetitions.HasValue
+                && _maxRepetitions.HasValue
+                && _minRepetitions == _maxRepetitions;
         }
 
         public RangeQuantifier(RegularExpression expression, int? minRepetions, int? maxRepetitions)
