@@ -30,12 +30,12 @@ namespace FriendlyRegularExpressions
 
         public IQuantifiableRegularExpression Then(char character)
         {
-            return ConcatenateThisWith(Literal(character));
+            return ConcatenateThisWith(AsLiteral(character));
         }
 
         public IQuantifiableRegularExpression Then(string literal)
         {
-            return ConcatenateThisWith(Literal(literal));
+            return ConcatenateThisWith(AsLiteral(literal));
         }
 
         public IQuantifiableRegularExpression Then(IRegularExpression expression)
@@ -45,12 +45,12 @@ namespace FriendlyRegularExpressions
 
         public Concatenation Maybe(char character)
         {
-            return Maybe(Literal(character));
+            return Maybe(AsLiteral(character));
         }
 
         public Concatenation Maybe(string literal)
         {
-            return Maybe(Literal(literal));
+            return Maybe(AsLiteral(literal));
         }
 
         public Concatenation Maybe(IRegularExpression expression)
@@ -70,8 +70,7 @@ namespace FriendlyRegularExpressions
         public IQuantifiableRegularExpression OneOf(params string[] literals)
         {
             var expressions = literals
-                .Select(literal => new Literal(literal))
-                .Cast<IRegularExpression>()
+                .Select(AsLiteral)
                 .ToArray();
 
             return OneOf(expressions);
@@ -87,8 +86,7 @@ namespace FriendlyRegularExpressions
         public Concatenation MaybeOneOf(params string[] literals)
         {
             var expressions = literals
-                .Select(literal => new Literal(literal))
-                .Cast<IRegularExpression>()
+                .Select(AsLiteral)
                 .ToArray();
 
             return MaybeOneOf(expressions);
@@ -243,12 +241,12 @@ namespace FriendlyRegularExpressions
             return Concatenation.Concatenate(expressions);
         }
 
-        private static IRegularExpression Literal(char character)
+        private static IRegularExpression AsLiteral(char character)
         {
-            return Literal(character.ToString(CultureInfo.InvariantCulture));
+            return AsLiteral(character.ToString(CultureInfo.InvariantCulture));
         }
 
-        private static IRegularExpression Literal(string literal)
+        private static IRegularExpression AsLiteral(string literal)
         {
             return new Literal(literal);
         }
